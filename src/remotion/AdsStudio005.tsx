@@ -1,0 +1,1071 @@
+import { AbsoluteFill, Audio, Video, staticFile, useCurrentFrame, interpolate, Easing, Sequence } from "remotion";
+import { loadFont } from "@remotion/google-fonts/Inter";
+
+const { fontFamily: interFont } = loadFont();
+
+// Demo placement text overlay - bottom centered
+const DemoPlacementText: React.FC = () => {
+  return (
+    <div
+      style={{
+        position: "absolute",
+        bottom: 80,
+        left: 0,
+        right: 0,
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <span
+        style={{
+          fontFamily: interFont,
+          fontSize: 28,
+          fontWeight: 600,
+          color: "white",
+          textAlign: "center",
+        }}
+      >
+        Demo Placement Only.
+      </span>
+    </div>
+  );
+};
+
+// Scene durations in frames (30fps)
+const SCENE1_DURATION = 45; // 1.5 seconds
+const SCENE2_DURATION = 45; // 1.5 seconds
+const SCENE3_DURATION = 90; // 3 seconds
+const SCENE4A_DURATION = 30; // 1 second
+const SCENE4B_DURATION = 30; // 1 second
+const SCENE5_DURATION = 60; // 2 seconds
+const TEXT_SCENE_DURATION = 105; // 3.5 seconds
+const TITLED_SCENE_DURATION = 60; // 2 seconds each
+const FINAL_TEXT_1_DURATION = 75; // 2.5 seconds
+const FINAL_TEXT_2_DURATION = 60; // 2 seconds
+const LOGO_OUTRO_DURATION = 90; // 3 seconds
+const URL_SCENE_DURATION = 30; // 1 second
+
+// Total duration for fade out calculation
+const TOTAL_DURATION = SCENE1_DURATION + SCENE2_DURATION + SCENE3_DURATION + SCENE4A_DURATION + SCENE4B_DURATION + SCENE5_DURATION + TITLED_SCENE_DURATION * 3 + FINAL_TEXT_1_DURATION + FINAL_TEXT_2_DURATION + LOGO_OUTRO_DURATION + URL_SCENE_DURATION;
+
+export const AdsStudio005: React.FC = () => {
+  return (
+    <AbsoluteFill style={{ backgroundColor: "#0a0a0a" }}>
+      {/* Background music with fade out */}
+      <BackgroundMusic />
+
+      {/* Scene 1: Mask reveal transition (0 - 2s) */}
+      <Sequence from={0} durationInFrames={SCENE1_DURATION}>
+        <Scene1MaskReveal />
+        <DemoPlacementText />
+      </Sequence>
+
+      {/* Scene 2: Mask reveal transition */}
+      <Sequence from={SCENE1_DURATION} durationInFrames={SCENE2_DURATION}>
+        <Scene2MaskReveal />
+        <DemoPlacementText />
+      </Sequence>
+
+      {/* Scene 3: Clip aligned right, then slides to show subject */}
+      <Sequence from={SCENE1_DURATION + SCENE2_DURATION} durationInFrames={SCENE3_DURATION}>
+        <Scene3SlideReveal />
+        <DemoPlacementText />
+      </Sequence>
+
+      {/* Scene 4a: First clip */}
+      <Sequence from={SCENE1_DURATION + SCENE2_DURATION + SCENE3_DURATION} durationInFrames={SCENE4A_DURATION}>
+        <AbsoluteFill>
+          <Video
+            src={staticFile("ads-studio-005-scene4a.mp4")}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+          />
+          <DemoPlacementText />
+        </AbsoluteFill>
+      </Sequence>
+
+      {/* Scene 4b: Second clip */}
+      <Sequence from={SCENE1_DURATION + SCENE2_DURATION + SCENE3_DURATION + SCENE4A_DURATION} durationInFrames={SCENE4B_DURATION}>
+        <AbsoluteFill>
+          <Video
+            src={staticFile("ads-studio-005-scene4b.mp4")}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+          />
+          <DemoPlacementText />
+        </AbsoluteFill>
+      </Sequence>
+
+      {/* Scene 5: Video with motion text overlay */}
+      <Sequence from={SCENE1_DURATION + SCENE2_DURATION + SCENE3_DURATION + SCENE4A_DURATION + SCENE4B_DURATION} durationInFrames={SCENE5_DURATION}>
+        <Scene5MotionTextOverlay />
+      </Sequence>
+
+      {/* Scene 6: Titled video scene */}
+      <Sequence from={SCENE1_DURATION + SCENE2_DURATION + SCENE3_DURATION + SCENE4A_DURATION + SCENE4B_DURATION + SCENE5_DURATION} durationInFrames={TITLED_SCENE_DURATION}>
+        <TitledVideoScene title="Passive Slots" videoSrc="ads-studio-005-scene6.mp4" />
+        <DemoPlacementText />
+      </Sequence>
+
+      {/* Scene 7: Titled video scene */}
+      <Sequence from={SCENE1_DURATION + SCENE2_DURATION + SCENE3_DURATION + SCENE4A_DURATION + SCENE4B_DURATION + SCENE5_DURATION + TITLED_SCENE_DURATION} durationInFrames={TITLED_SCENE_DURATION}>
+        <TitledVideoScene title="Integrated Slots" videoSrc="ads-studio-005-scene7.mp4" />
+        <DemoPlacementText />
+      </Sequence>
+
+      {/* Scene 8: Titled video scene */}
+      <Sequence from={SCENE1_DURATION + SCENE2_DURATION + SCENE3_DURATION + SCENE4A_DURATION + SCENE4B_DURATION + SCENE5_DURATION + TITLED_SCENE_DURATION * 2} durationInFrames={TITLED_SCENE_DURATION}>
+        <TitledVideoScene title="Active Slots" videoSrc="ads-studio-005-scene8.mp4" />
+        <DemoPlacementText />
+      </Sequence>
+
+      {/* Scene 9: First final text - in and out */}
+      <Sequence from={SCENE1_DURATION + SCENE2_DURATION + SCENE3_DURATION + SCENE4A_DURATION + SCENE4B_DURATION + SCENE5_DURATION + TITLED_SCENE_DURATION * 3} durationInFrames={FINAL_TEXT_1_DURATION}>
+        <FinalMotionText1 />
+      </Sequence>
+
+      {/* Scene 10: Second final text */}
+      <Sequence from={SCENE1_DURATION + SCENE2_DURATION + SCENE3_DURATION + SCENE4A_DURATION + SCENE4B_DURATION + SCENE5_DURATION + TITLED_SCENE_DURATION * 3 + FINAL_TEXT_1_DURATION} durationInFrames={FINAL_TEXT_2_DURATION}>
+        <FinalMotionText2 />
+      </Sequence>
+
+      {/* Scene 11: Logo outro */}
+      <Sequence from={SCENE1_DURATION + SCENE2_DURATION + SCENE3_DURATION + SCENE4A_DURATION + SCENE4B_DURATION + SCENE5_DURATION + TITLED_SCENE_DURATION * 3 + FINAL_TEXT_1_DURATION + FINAL_TEXT_2_DURATION} durationInFrames={LOGO_OUTRO_DURATION}>
+        <LogoOutro />
+      </Sequence>
+
+      {/* Scene 12: URL slide in */}
+      <Sequence from={SCENE1_DURATION + SCENE2_DURATION + SCENE3_DURATION + SCENE4A_DURATION + SCENE4B_DURATION + SCENE5_DURATION + TITLED_SCENE_DURATION * 3 + FINAL_TEXT_1_DURATION + FINAL_TEXT_2_DURATION + LOGO_OUTRO_DURATION} durationInFrames={URL_SCENE_DURATION}>
+        <UrlSlideIn />
+      </Sequence>
+    </AbsoluteFill>
+  );
+};
+
+// Scene 1: First clip with left-to-right mask reveal to second clip
+const Scene1MaskReveal: React.FC = () => {
+  const frame = useCurrentFrame();
+  
+  // Left-to-right wipe across entire scene duration
+  const revealProgress = interpolate(
+    frame,
+    [0, SCENE1_DURATION],
+    [0, 100],
+    {
+      easing: Easing.inOut(Easing.cubic),
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
+
+  return (
+    <AbsoluteFill>
+      {/* First clip (background) - muted */}
+      <AbsoluteFill>
+        <Video
+          muted
+          src={staticFile("ads-studio-005-scene1a.mp4")}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+          }}
+        />
+      </AbsoluteFill>
+
+      {/* Second clip (revealed through left-to-right mask) - audio */}
+      <AbsoluteFill
+        style={{
+          clipPath: `inset(0 ${100 - revealProgress}% 0 0)`,
+        }}
+      >
+        <Video
+          src={staticFile("ads-studio-005-scene1b.mp4")}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+          }}
+        />
+      </AbsoluteFill>
+    </AbsoluteFill>
+  );
+};
+
+// Scene 2: Left-to-right mask reveal, clips aligned right
+const Scene2MaskReveal: React.FC = () => {
+  const frame = useCurrentFrame();
+  
+  // Left-to-right wipe across scene duration
+  const revealProgress = interpolate(
+    frame,
+    [0, SCENE2_DURATION],
+    [0, 100],
+    {
+      easing: Easing.inOut(Easing.cubic),
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
+
+  return (
+    <AbsoluteFill>
+      {/* First clip (background) - aligned right, muted */}
+      <AbsoluteFill>
+        <Video
+          muted
+          src={staticFile("ads-studio-005-scene2a.mp4")}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "right center",
+          }}
+        />
+      </AbsoluteFill>
+
+      {/* Second clip (revealed through left-to-right mask) - aligned right, audio */}
+      <AbsoluteFill
+        style={{
+          clipPath: `inset(0 ${100 - revealProgress}% 0 0)`,
+        }}
+      >
+        <Video
+          src={staticFile("ads-studio-005-scene2b.mp4")}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "right center",
+          }}
+        />
+      </AbsoluteFill>
+    </AbsoluteFill>
+  );
+};
+
+// Scene 5: Motion text overlay on video
+const Scene5MotionTextOverlay: React.FC = () => {
+  const frame = useCurrentFrame();
+  const text = "Three Ways to Passively Earn";
+  const words = text.split(" ");
+  
+  const ANIMATION_DURATION = 45; // 1.5s for letter animation
+  
+  // Continuous scale from 100% to 120% throughout entire scene
+  const scale = interpolate(
+    frame,
+    [0, SCENE5_DURATION],
+    [1.0, 1.2],
+    {
+      easing: Easing.inOut(Easing.cubic),
+      extrapolateRight: "clamp",
+    }
+  );
+
+  // Calculate total letters for timing
+  const totalLetters = text.replace(/ /g, "").length;
+  const framesPerLetter = ANIMATION_DURATION / totalLetters;
+  
+  let letterIndex = 0;
+
+  return (
+    <AbsoluteFill>
+      {/* Video background */}
+      <Video
+        muted
+        startFrom={60}
+        src={staticFile("ads-studio-005-scene5.mp4")}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+        }}
+      />
+      
+      {/* Dark tint overlay */}
+      <AbsoluteFill
+        style={{
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+        }}
+      />
+      
+      {/* Motion text overlay */}
+      <AbsoluteFill
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          transform: `scale(${scale})`,
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "16px",
+            padding: "40px",
+            maxWidth: "900px",
+          }}
+        >
+          {words.map((word, wordIndex) => {
+            const wordStartFrame = letterIndex * framesPerLetter;
+            
+            // Word slide up animation
+            const wordProgress = interpolate(
+              frame,
+              [wordStartFrame, wordStartFrame + 10],
+              [0, 1],
+              {
+                easing: Easing.out(Easing.cubic),
+                extrapolateLeft: "clamp",
+                extrapolateRight: "clamp",
+              }
+            );
+            
+            const translateY = interpolate(wordProgress, [0, 1], [40, 0]);
+            const wordOpacity = interpolate(wordProgress, [0, 1], [0, 1]);
+
+            const wordElement = (
+              <span
+                key={wordIndex}
+                style={{
+                  display: "inline-flex",
+                  transform: `translateY(${translateY}px)`,
+                  opacity: wordOpacity,
+                }}
+              >
+                {word.split("").map((letter, idx) => {
+                  const currentLetterIndex = letterIndex + idx;
+                  const letterStartFrame = currentLetterIndex * framesPerLetter;
+                  
+                  const letterOpacity = interpolate(
+                    frame,
+                    [letterStartFrame, letterStartFrame + 5],
+                    [0, 1],
+                    {
+                      extrapolateLeft: "clamp",
+                      extrapolateRight: "clamp",
+                    }
+                  );
+
+                  return (
+                    <span
+                      key={idx}
+                      style={{
+                        color: "#ffffff",
+                        fontSize: "72px",
+                        fontWeight: "bold",
+                        fontFamily: interFont,
+                        opacity: letterOpacity,
+                        textShadow: "0 4px 20px rgba(0, 0, 0, 0.8)",
+                      }}
+                    >
+                      {letter}
+                    </span>
+                  );
+                })}
+              </span>
+            );
+
+            letterIndex += word.length;
+            return wordElement;
+          })}
+        </div>
+      </AbsoluteFill>
+    </AbsoluteFill>
+  );
+};
+
+// Scene 3: Clip aligned right
+const Scene3SlideReveal: React.FC = () => {
+  return (
+    <AbsoluteFill>
+      <Video
+        src={staticFile("ads-studio-005-scene3.mp4")}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          objectPosition: "right center",
+        }}
+      />
+    </AbsoluteFill>
+  );
+};
+
+// Video with animated text overlay
+const VideoWithTextOverlay: React.FC<{ text: string; videoSrc: string }> = ({ text, videoSrc }) => {
+  const frame = useCurrentFrame();
+  const words = text.split(" ");
+  
+  const ANIMATION_DURATION = 45; // 1.5s for letter animation
+  
+  // Continuous scale from 100% to 110%
+  const scale = interpolate(
+    frame,
+    [0, TEXT_SCENE_DURATION],
+    [1.0, 1.1],
+    {
+      easing: Easing.inOut(Easing.cubic),
+      extrapolateRight: "clamp",
+    }
+  );
+
+  const totalLetters = text.replace(/ /g, "").length;
+  const framesPerLetter = ANIMATION_DURATION / totalLetters;
+  
+  let letterIndex = 0;
+
+  return (
+    <AbsoluteFill>
+      {/* Video background */}
+      <Video
+        muted
+        src={staticFile(videoSrc)}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+        }}
+      />
+      {/* Dark overlay for text readability */}
+      <AbsoluteFill style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }} />
+      {/* Text overlay */}
+      <AbsoluteFill
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          transform: `scale(${scale})`,
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "16px",
+            padding: "40px",
+            maxWidth: "900px",
+          }}
+        >
+          {words.map((word, wordIndex) => {
+            const wordStartFrame = letterIndex * framesPerLetter;
+            
+            const wordProgress = interpolate(
+              frame,
+              [wordStartFrame, wordStartFrame + 10],
+              [0, 1],
+              {
+                easing: Easing.out(Easing.cubic),
+                extrapolateLeft: "clamp",
+                extrapolateRight: "clamp",
+              }
+            );
+            
+            const translateY = interpolate(wordProgress, [0, 1], [40, 0]);
+            const wordOpacity = interpolate(wordProgress, [0, 1], [0, 1]);
+
+            const wordElement = (
+              <span
+                key={wordIndex}
+                style={{
+                  display: "inline-flex",
+                  transform: `translateY(${translateY}px)`,
+                  opacity: wordOpacity,
+                }}
+              >
+                {word.split("").map((letter, idx) => {
+                  const currentLetterIndex = letterIndex + idx;
+                  const letterStartFrame = currentLetterIndex * framesPerLetter;
+                  
+                  const letterOpacity = interpolate(
+                    frame,
+                    [letterStartFrame, letterStartFrame + 5],
+                    [0, 1],
+                    {
+                      extrapolateLeft: "clamp",
+                      extrapolateRight: "clamp",
+                    }
+                  );
+
+                  return (
+                    <span
+                      key={idx}
+                      style={{
+                        color: "#ffffff",
+                        fontSize: "72px",
+                        fontWeight: "bold",
+                        fontFamily: interFont,
+                        opacity: letterOpacity,
+                        textShadow: "0 4px 20px rgba(0, 0, 0, 0.5)",
+                      }}
+                    >
+                      {letter}
+                    </span>
+                  );
+                })}
+              </span>
+            );
+
+            letterIndex += word.length;
+            return wordElement;
+          })}
+        </div>
+      </AbsoluteFill>
+    </AbsoluteFill>
+  );
+};
+
+// Titled video scene with title overlay - matching ads-studio-004 style
+const TitledVideoScene: React.FC<{ title: string; videoSrc: string }> = ({ title, videoSrc }) => {
+  const frame = useCurrentFrame();
+  
+  // Title fade in and slide up
+  const titleOpacity = interpolate(
+    frame,
+    [0, 12],
+    [0, 1],
+    {
+      extrapolateRight: "clamp",
+    }
+  );
+  
+  const titleY = interpolate(
+    frame,
+    [0, 12],
+    [30, 0],
+    {
+      easing: Easing.out(Easing.cubic),
+      extrapolateRight: "clamp",
+    }
+  );
+
+  return (
+    <AbsoluteFill style={{ backgroundColor: "#0a0a0a" }}>
+      <Video
+        muted
+        src={staticFile(videoSrc)}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+        }}
+      />
+      {/* Title overlay - bottom positioned with pill background */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 320,
+          left: 0,
+          right: 0,
+          display: "flex",
+          justifyContent: "center",
+          opacity: titleOpacity,
+          transform: `translateY(${titleY}px)`,
+        }}
+      >
+        <div
+          style={{
+            fontFamily: interFont,
+            fontSize: 64,
+            fontWeight: 600,
+            color: "white",
+            backgroundColor: "rgba(0, 0, 0, 0.6)",
+            padding: "20px 48px",
+            borderRadius: 12,
+            textAlign: "center",
+          }}
+        >
+          {title}
+        </div>
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+// Motion text animation - letter by letter with word slide up
+const MotionText: React.FC<{ text: string }> = ({ text }) => {
+  const frame = useCurrentFrame();
+  const words = text.split(" ");
+  
+  const ANIMATION_DURATION = 45; // 1.5s for letter animation
+  
+  // Continuous scale from 100% to 120% throughout entire scene
+  const scale = interpolate(
+    frame,
+    [0, TEXT_SCENE_DURATION],
+    [1.0, 1.2],
+    {
+      easing: Easing.inOut(Easing.cubic),
+      extrapolateRight: "clamp",
+    }
+  );
+
+  // Calculate total letters for timing
+  const totalLetters = text.replace(/ /g, "").length;
+  const framesPerLetter = ANIMATION_DURATION / totalLetters;
+  
+  let letterIndex = 0;
+
+  return (
+    <AbsoluteFill
+      style={{
+        backgroundColor: "#0a0a0a",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        transform: `scale(${scale})`,
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "16px",
+          padding: "40px",
+          maxWidth: "900px",
+        }}
+      >
+        {words.map((word, wordIndex) => {
+          const wordStartFrame = letterIndex * framesPerLetter;
+          
+          // Word slide up animation
+          const wordProgress = interpolate(
+            frame,
+            [wordStartFrame, wordStartFrame + 10],
+            [0, 1],
+            {
+              easing: Easing.out(Easing.cubic),
+              extrapolateLeft: "clamp",
+              extrapolateRight: "clamp",
+            }
+          );
+          
+          const translateY = interpolate(wordProgress, [0, 1], [40, 0]);
+          const wordOpacity = interpolate(wordProgress, [0, 1], [0, 1]);
+
+          const wordElement = (
+            <span
+              key={wordIndex}
+              style={{
+                display: "inline-flex",
+                transform: `translateY(${translateY}px)`,
+                opacity: wordOpacity,
+              }}
+            >
+              {word.split("").map((letter, idx) => {
+                const currentLetterIndex = letterIndex + idx;
+                const letterStartFrame = currentLetterIndex * framesPerLetter;
+                
+                const letterOpacity = interpolate(
+                  frame,
+                  [letterStartFrame, letterStartFrame + 5],
+                  [0, 1],
+                  {
+                    extrapolateLeft: "clamp",
+                    extrapolateRight: "clamp",
+                  }
+                );
+
+                return (
+                  <span
+                    key={idx}
+                    style={{
+                      color: "#ffffff",
+                      fontSize: "72px",
+                      fontWeight: "bold",
+                      fontFamily: interFont,
+                      opacity: letterOpacity,
+                    }}
+                  >
+                    {letter}
+                  </span>
+                );
+              })}
+            </span>
+          );
+
+          letterIndex += word.length;
+          return wordElement;
+        })}
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+// First final text - animates in then fades out
+const FinalMotionText1: React.FC = () => {
+  const frame = useCurrentFrame();
+  const text = "Brands bid on ad space in your content";
+  const words = text.split(" ");
+  
+  const ANIMATION_DURATION = 30; // 1s for letter animation
+  const FADE_OUT_START = 55; // Start fade out
+  
+  // Continuous scale from 100% to 110%
+  const scale = interpolate(
+    frame,
+    [0, FINAL_TEXT_1_DURATION],
+    [1.0, 1.1],
+    {
+      easing: Easing.inOut(Easing.cubic),
+      extrapolateRight: "clamp",
+    }
+  );
+  
+  // Fade out at end
+  const sceneOpacity = interpolate(
+    frame,
+    [FADE_OUT_START, FINAL_TEXT_1_DURATION],
+    [1, 0],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
+
+  const totalLetters = text.replace(/ /g, "").length;
+  const framesPerLetter = ANIMATION_DURATION / totalLetters;
+  
+  let letterIndex = 0;
+
+  return (
+    <AbsoluteFill
+      style={{
+        backgroundColor: "#0a0a0a",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        transform: `scale(${scale})`,
+        opacity: sceneOpacity,
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "16px",
+          padding: "40px",
+          maxWidth: "900px",
+        }}
+      >
+        {words.map((word, wordIndex) => {
+          const wordStartFrame = letterIndex * framesPerLetter;
+          
+          const wordProgress = interpolate(
+            frame,
+            [wordStartFrame, wordStartFrame + 10],
+            [0, 1],
+            {
+              easing: Easing.out(Easing.cubic),
+              extrapolateLeft: "clamp",
+              extrapolateRight: "clamp",
+            }
+          );
+          
+          const translateY = interpolate(wordProgress, [0, 1], [40, 0]);
+          const wordOpacity = interpolate(wordProgress, [0, 1], [0, 1]);
+
+          const wordElement = (
+            <span
+              key={wordIndex}
+              style={{
+                display: "inline-flex",
+                transform: `translateY(${translateY}px)`,
+                opacity: wordOpacity,
+              }}
+            >
+              {word.split("").map((letter, idx) => {
+                const currentLetterIndex = letterIndex + idx;
+                const letterStartFrame = currentLetterIndex * framesPerLetter;
+                
+                const letterOpacity = interpolate(
+                  frame,
+                  [letterStartFrame, letterStartFrame + 5],
+                  [0, 1],
+                  {
+                    extrapolateLeft: "clamp",
+                    extrapolateRight: "clamp",
+                  }
+                );
+
+                return (
+                  <span
+                    key={idx}
+                    style={{
+                      color: "#ffffff",
+                      fontSize: "72px",
+                      fontWeight: "bold",
+                      fontFamily: interFont,
+                      opacity: letterOpacity,
+                    }}
+                  >
+                    {letter}
+                  </span>
+                );
+              })}
+            </span>
+          );
+
+          letterIndex += word.length;
+          return wordElement;
+        })}
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+// Second final text - animates in
+const FinalMotionText2: React.FC = () => {
+  const frame = useCurrentFrame();
+  const text = "AI handles the placement";
+  const words = text.split(" ");
+  
+  const ANIMATION_DURATION = 30; // 1s for letter animation
+  
+  // Continuous scale from 100% to 110%
+  const scale = interpolate(
+    frame,
+    [0, FINAL_TEXT_2_DURATION],
+    [1.0, 1.1],
+    {
+      easing: Easing.inOut(Easing.cubic),
+      extrapolateRight: "clamp",
+    }
+  );
+
+  const totalLetters = text.replace(/ /g, "").length;
+  const framesPerLetter = ANIMATION_DURATION / totalLetters;
+  
+  let letterIndex = 0;
+
+  return (
+    <AbsoluteFill
+      style={{
+        backgroundColor: "#0a0a0a",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        transform: `scale(${scale})`,
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "16px",
+          padding: "40px",
+          maxWidth: "900px",
+        }}
+      >
+        {words.map((word, wordIndex) => {
+          const wordStartFrame = letterIndex * framesPerLetter;
+          
+          const wordProgress = interpolate(
+            frame,
+            [wordStartFrame, wordStartFrame + 10],
+            [0, 1],
+            {
+              easing: Easing.out(Easing.cubic),
+              extrapolateLeft: "clamp",
+              extrapolateRight: "clamp",
+            }
+          );
+          
+          const translateY = interpolate(wordProgress, [0, 1], [40, 0]);
+          const wordOpacity = interpolate(wordProgress, [0, 1], [0, 1]);
+
+          const wordElement = (
+            <span
+              key={wordIndex}
+              style={{
+                display: "inline-flex",
+                transform: `translateY(${translateY}px)`,
+                opacity: wordOpacity,
+              }}
+            >
+              {word.split("").map((letter, idx) => {
+                const currentLetterIndex = letterIndex + idx;
+                const letterStartFrame = currentLetterIndex * framesPerLetter;
+                
+                const letterOpacity = interpolate(
+                  frame,
+                  [letterStartFrame, letterStartFrame + 5],
+                  [0, 1],
+                  {
+                    extrapolateLeft: "clamp",
+                    extrapolateRight: "clamp",
+                  }
+                );
+
+                return (
+                  <span
+                    key={idx}
+                    style={{
+                      color: "#ffffff",
+                      fontSize: "72px",
+                      fontWeight: "bold",
+                      fontFamily: interFont,
+                      opacity: letterOpacity,
+                    }}
+                  >
+                    {letter}
+                  </span>
+                );
+              })}
+            </span>
+          );
+
+          letterIndex += word.length;
+          return wordElement;
+        })}
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+// Logo outro - fast scale in, then fade out
+const LogoOutro: React.FC = () => {
+  const frame = useCurrentFrame();
+  
+  const SCALE_DURATION = 20; // Quick 0.66s scale animation
+  const FADE_OUT_START = 60; // Start fade out at 2 seconds
+  
+  // Scale from 200% to 120% quickly then hold
+  const scale = interpolate(
+    frame,
+    [0, SCALE_DURATION],
+    [2.0, 1.2],
+    {
+      easing: Easing.out(Easing.cubic),
+      extrapolateRight: "clamp",
+    }
+  );
+  
+  // Quick fade in, hold, then fade out
+  const opacity = interpolate(
+    frame,
+    [0, 8, FADE_OUT_START, LOGO_OUTRO_DURATION],
+    [0, 1, 1, 0],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
+
+  return (
+    <AbsoluteFill
+      style={{
+        backgroundColor: "#0a0a0a",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <img
+        src={staticFile("darwin-studio-logo-white.svg")}
+        alt="Darwin Studio"
+        style={{
+          width: "80%",
+          maxWidth: "600px",
+          transform: `scale(${scale})`,
+          opacity,
+        }}
+      />
+    </AbsoluteFill>
+  );
+};
+
+// URL slide in from bottom - quick .2s slide then hold
+const UrlSlideIn: React.FC = () => {
+  const frame = useCurrentFrame();
+  
+  const SLIDE_DURATION = 6; // 0.2 seconds at 30fps
+  
+  // Slide up from bottom quickly then hold
+  const translateY = interpolate(
+    frame,
+    [0, SLIDE_DURATION],
+    [100, 0],
+    {
+      easing: Easing.out(Easing.cubic),
+      extrapolateRight: "clamp",
+    }
+  );
+  
+  // Quick fade in
+  const opacity = interpolate(
+    frame,
+    [0, SLIDE_DURATION],
+    [0, 1],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
+
+  return (
+    <AbsoluteFill
+      style={{
+        backgroundColor: "#0a0a0a",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <span
+        style={{
+          fontFamily: interFont,
+          fontWeight: 600,
+          fontSize: "48px",
+          color: "#ffffff",
+          transform: `translateY(${translateY}px)`,
+          opacity,
+        }}
+      >
+        studio.darwin.so
+      </span>
+    </AbsoluteFill>
+  );
+};
+
+// Background music with fade out at end
+const BackgroundMusic: React.FC = () => {
+  const frame = useCurrentFrame();
+  
+  const FADE_OUT_START = TOTAL_DURATION - 60; // Start fade 2 seconds before end
+  
+  const volume = interpolate(
+    frame,
+    [0, FADE_OUT_START, TOTAL_DURATION],
+    [1, 1, 0],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
+
+  return (
+    <Audio
+      src={staticFile("premium-launch-underscore.mp3")}
+      volume={volume}
+    />
+  );
+};

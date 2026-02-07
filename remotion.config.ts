@@ -8,4 +8,10 @@ import { webpackOverride } from "./src/remotion/webpack-override.mjs";
 
 Config.setVideoImageFormat("jpeg");
 
+// Increase timeout for .mov files which are slower to decode
+Config.setDelayRenderTimeoutInMilliseconds(120000);
+
+// Render one frame at a time to prevent video decode issues (fixes jumpy exports)
+Config.setConcurrency(1);
+
 Config.overrideWebpackConfig(webpackOverride);

@@ -7,6 +7,7 @@ import { fallingSpheresExample } from "./falling-spheres";
 import { goldPriceChartExample } from "./gold-price-chart";
 import { typewriterHighlightExample } from "./typewriter-highlight";
 import { wordCarouselExample } from "./word-carousel";
+import { newAnimationExample } from "./new-animation";
 
 export interface RemotionExample {
   id: string;
@@ -19,6 +20,7 @@ export interface RemotionExample {
 }
 
 export const examples: RemotionExample[] = [
+  newAnimationExample,
   textRotationExample,
   histogramExample,
   progressBarExample,
