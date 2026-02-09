@@ -37,3 +37,14 @@ next-env.d.ts
 out/
 .env
 build
+
+# Media files (videos, audio)
+public/*.mp4
+public/*.mov
+public/*.mp3
+public/*.webm
+public/originals/
+
+# IDE/Editor
+.cursor/
+.agents/

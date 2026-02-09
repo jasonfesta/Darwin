@@ -91,6 +91,25 @@ const VideoLabel: React.FC<{ label: string; position: "top" | "bottom" }> = ({ l
   );
 };
 
+// Fade wrapper for title scenes
+const FadeWrapper: React.FC<{ children: React.ReactNode; duration: number }> = ({ children, duration }) => {
+  const frame = useCurrentFrame();
+  const fadeFrames = 15; // 0.5 second fade
+  
+  const opacity = interpolate(
+    frame,
+    [0, fadeFrames, duration - fadeFrames, duration],
+    [0, 1, 1, 0],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+  );
+  
+  return (
+    <AbsoluteFill style={{ opacity }}>
+      {children}
+    </AbsoluteFill>
+  );
+};
+
 // Step title with fade in/out animation
 const StepTitle: React.FC<{ text: string; duration: number }> = ({ text, duration }) => {
   const frame = useCurrentFrame();
@@ -130,6 +149,21 @@ const StepTitle: React.FC<{ text: string; duration: number }> = ({ text, duratio
       </span>
     </div>
   );
+};
+
+// Intro scene with quick audio fade-in
+const IntroScene: React.FC<{ clip: string }> = ({ clip }) => {
+  const frame = useCurrentFrame();
+  const fadeInFrames = 10; // ~0.33 seconds
+  
+  const volume = interpolate(
+    frame,
+    [0, fadeInFrames],
+    [0, 1],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+  );
+  
+  return <Video src={staticFile(clip)} volume={volume} />;
 };
 
 // Demo placement text overlay - bottom left
@@ -238,6 +272,15 @@ export const Update211_9x16: React.FC = () => {
   // Fade out timing (last 2 seconds = 60 frames)
   const fadeOutStart = TOTAL_DURATION - 60;
   
+  // Quick fade in at start (10 frames = ~0.33 seconds)
+  const fadeInFrames = 10;
+  const fadeInVolume = interpolate(
+    frame,
+    [0, fadeInFrames],
+    [0, 1],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+  );
+  
   // Duck during intro (scene 1) - fade up to full volume at scene 2
   const introVolume = interpolate(
     frame,
@@ -283,7 +326,7 @@ export const Update211_9x16: React.FC = () => {
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
   );
   
-  const musicVolume = introVolume * duckVolume * fadeOutVolume;
+  const musicVolume = fadeInVolume * introVolume * duckVolume * fadeOutVolume;
   
   return (
     <AbsoluteFill style={{ backgroundColor: "#0a0a0a" }}>
@@ -292,7 +335,7 @@ export const Update211_9x16: React.FC = () => {
 
       {/* Scene 1 */}
       <Sequence name={`Scene 1: ${scene1.name}`} from={getStartTime(0)} durationInFrames={scene1.duration}>
-        <Video src={staticFile(scene1.clip)} />
+        <IntroScene clip={scene1.clip} />
         <DemoPlacementText />
       </Sequence>
 
@@ -303,23 +346,29 @@ export const Update211_9x16: React.FC = () => {
 
       {/* Scene 3 */}
       <Sequence name={`Scene 3: ${scene3.name}`} from={getStartTime(2)} durationInFrames={scene3.duration}>
-        <Video src={staticFile(scene3.clip)} />
+        <FadeWrapper duration={scene3.duration}>
+          <Video src={staticFile(scene3.clip)} />
+        </FadeWrapper>
       </Sequence>
 
       {/* Scene 4 */}
       <Sequence name={`Scene 4: ${scene4.name}`} from={getStartTime(3)} durationInFrames={scene4.duration}>
-        <Video src={staticFile(scene4.clip)} />
+        <FadeWrapper duration={scene4.duration}>
+          <Video src={staticFile(scene4.clip)} />
+        </FadeWrapper>
       </Sequence>
 
       {/* Scene 5 */}
       <Sequence name={`Scene 5: ${scene5.name}`} from={getStartTime(4)} durationInFrames={scene5.duration}>
         <Video src={staticFile(scene5.clip)} />
-        <StepTitle text="Step One: Info Lookup / Asset Upload" duration={scene5.duration} />
+        <StepTitle text="Step One: Info Lookup & Asset Upload" duration={scene5.duration} />
       </Sequence>
 
       {/* Scene 6 */}
       <Sequence name={`Scene 6: ${scene6.name}`} from={getStartTime(5)} durationInFrames={scene6.duration}>
-        <Video src={staticFile(scene6.clip)} />
+        <FadeWrapper duration={scene6.duration}>
+          <Video src={staticFile(scene6.clip)} />
+        </FadeWrapper>
       </Sequence>
 
       {/* Scene 7 */}
@@ -330,7 +379,9 @@ export const Update211_9x16: React.FC = () => {
 
       {/* Scene 8 */}
       <Sequence name={`Scene 8: ${scene8.name}`} from={getStartTime(7)} durationInFrames={scene8.duration}>
-        <Video src={staticFile(scene8.clip)} />
+        <FadeWrapper duration={scene8.duration}>
+          <Video src={staticFile(scene8.clip)} />
+        </FadeWrapper>
       </Sequence>
 
       {/* Scene 9 */}
@@ -341,23 +392,29 @@ export const Update211_9x16: React.FC = () => {
 
       {/* Scene 10 */}
       <Sequence name={`Scene 10: ${scene10.name}`} from={getStartTime(9)} durationInFrames={scene10.duration}>
-        <Video src={staticFile(scene10.clip)} />
+        <FadeWrapper duration={scene10.duration}>
+          <Video src={staticFile(scene10.clip)} />
+        </FadeWrapper>
       </Sequence>
 
       {/* Scene 11 */}
       <Sequence name={`Scene 11: ${scene11.name}`} from={getStartTime(10)} durationInFrames={scene11.duration}>
-        <Video src={staticFile(scene11.clip)} />
+        <FadeWrapper duration={scene11.duration}>
+          <Video src={staticFile(scene11.clip)} />
+        </FadeWrapper>
       </Sequence>
 
       {/* Scene 12 */}
       <Sequence name={`Scene 12: ${scene12.name}`} from={getStartTime(11)} durationInFrames={scene12.duration}>
         <Video src={staticFile(scene12.clip)} />
-        <StepTitle text="Step One: Profile Lookup / Account Syncing" duration={scene12.duration} />
+        <StepTitle text="Step One: Profile Lookup & Account Syncing" duration={scene12.duration} />
       </Sequence>
 
       {/* Scene 13 */}
       <Sequence name={`Scene 13: ${scene13.name}`} from={getStartTime(12)} durationInFrames={scene13.duration}>
-        <Video src={staticFile(scene13.clip)} />
+        <FadeWrapper duration={scene13.duration}>
+          <Video src={staticFile(scene13.clip)} />
+        </FadeWrapper>
       </Sequence>
 
       {/* Scene 14 */}
@@ -368,7 +425,9 @@ export const Update211_9x16: React.FC = () => {
 
       {/* Scene 15 */}
       <Sequence name={`Scene 15: ${scene15.name}`} from={getStartTime(14)} durationInFrames={scene15.duration}>
-        <Video src={staticFile(scene15.clip)} />
+        <FadeWrapper duration={scene15.duration}>
+          <Video src={staticFile(scene15.clip)} />
+        </FadeWrapper>
       </Sequence>
 
       {/* Scene 16 */}
@@ -379,12 +438,16 @@ export const Update211_9x16: React.FC = () => {
 
       {/* Scene 17 */}
       <Sequence name={`Scene 17: ${scene17.name}`} from={getStartTime(16)} durationInFrames={scene17.duration}>
-        <Video src={staticFile(scene17.clip)} />
+        <FadeWrapper duration={scene17.duration}>
+          <Video src={staticFile(scene17.clip)} />
+        </FadeWrapper>
       </Sequence>
 
       {/* Scene 18 */}
       <Sequence name={`Scene 18: ${scene18.name}`} from={getStartTime(17)} durationInFrames={scene18.duration}>
-        <Video src={staticFile(scene18.clip)} />
+        <FadeWrapper duration={scene18.duration}>
+          <Video src={staticFile(scene18.clip)} />
+        </FadeWrapper>
       </Sequence>
 
       {/* Scene 20 */}
@@ -404,7 +467,9 @@ export const Update211_9x16: React.FC = () => {
 
       {/* Scene 23 - Creator Title */}
       <Sequence name={`Scene 23: ${scene23.name}`} from={getStartTime(21)} durationInFrames={scene23.duration}>
-        <Video src={staticFile(scene23.clip)} />
+        <FadeWrapper duration={scene23.duration}>
+          <Video src={staticFile(scene23.clip)} />
+        </FadeWrapper>
       </Sequence>
 
       {/* Scene 24 */}
