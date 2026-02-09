@@ -49,7 +49,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="ads-studio-brands-9x16"
         component={AdsStudioBrands}
-        durationInFrames={1542}
+        durationInFrames={1602}
         fps={30}
         width={1080}
         height={1920}
@@ -57,7 +57,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="ads-studio-brands-16x9"
         component={AdsStudioBrands_16x9}
-        durationInFrames={1542}
+        durationInFrames={1602}
         fps={30}
         width={1920}
         height={1080}

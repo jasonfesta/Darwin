@@ -10,6 +10,7 @@ const ASSET_CACHE_BUST = "8";
 // Scene durations in frames (30fps)
 const INTRO_DURATION = 137; // 4.57 seconds
 const TAGLINE_DURATION = 120; // 4 seconds - tagline before scene 2
+const TITLE1_DURATION = 150; // 5 seconds (Scene 2: Title 1)
 const TITLE_DURATION = 90; // 3 seconds (each title)
 const STACKED_DURATION = 140; // 4.67 seconds (matches bottom clip)
 const STACKED2_DURATION = 135; // 4.5 seconds (matches bottom clip)
@@ -20,14 +21,14 @@ const OUTRO1_DURATION = 90; // 3 seconds
 const OUTRO2_DURATION = 90; // 3 seconds
 
 // Total duration for fade out calculation (intro + tagline + 5 title + 4 stacked + pre-outro + 2 outros)
-const TOTAL_DURATION = INTRO_DURATION + TAGLINE_DURATION + (TITLE_DURATION * 5) + STACKED_DURATION + STACKED2_DURATION + STACKED3_DURATION + STACKED4_DURATION + PRE_OUTRO_DURATION + OUTRO1_DURATION + OUTRO2_DURATION;
+const TOTAL_DURATION = INTRO_DURATION + TAGLINE_DURATION + TITLE1_DURATION + (TITLE_DURATION * 4) + STACKED_DURATION + STACKED2_DURATION + STACKED3_DURATION + STACKED4_DURATION + PRE_OUTRO_DURATION + OUTRO1_DURATION + OUTRO2_DURATION;
 
 export const AdsStudioBrands_16x9: React.FC = () => {
   // Scene start times
   const scene1Start = 0;
   const taglineStart = INTRO_DURATION;
   const scene2Start = taglineStart + TAGLINE_DURATION;
-  const scene2bStart = scene2Start + TITLE_DURATION;     // New Title 1b
+  const scene2bStart = scene2Start + TITLE1_DURATION;     // New Title 1b
   const scene4Start = scene2bStart + TITLE_DURATION;
   const scene5Start = scene4Start + STACKED_DURATION;
   const scene6Start = scene5Start + TITLE_DURATION;
@@ -76,11 +77,11 @@ export const AdsStudioBrands_16x9: React.FC = () => {
       </Sequence>
 
       {/* Scene 2: Title 1 - swapped 16x9 clip */}
-      <Sequence from={scene2Start} durationInFrames={TITLE_DURATION}>
+      <Sequence from={scene2Start} durationInFrames={TITLE1_DURATION}>
         <AbsoluteFill>
           <Video
             muted
-            src={staticFile("ads-studio-brands-16x9-title1.mp4") + "?v=" + ASSET_CACHE_BUST}
+            src={staticFile("large-tagline-16x9-title1.mp4") + "?v=" + ASSET_CACHE_BUST}
             style={{
               width: "100%",
               height: "100%",
@@ -224,7 +225,7 @@ export const AdsStudioBrands_16x9: React.FC = () => {
 
 // Background music - fade out over last 5 seconds, duck during creator audio (Scene 4, 6, 8, and 10)
 const FADE_OUT_DURATION_FRAMES = 30 * 5; // 5 seconds
-const SCENE4_START = INTRO_DURATION + TAGLINE_DURATION + (TITLE_DURATION * 2); // After intro + tagline + 2 titles
+const SCENE4_START = INTRO_DURATION + TAGLINE_DURATION + TITLE1_DURATION + TITLE_DURATION; // After intro + tagline + 2 titles
 const SCENE4_END = SCENE4_START + STACKED_DURATION;
 const SCENE6_START = SCENE4_END + TITLE_DURATION; // After scene 5 (title)
 const SCENE6_END = SCENE6_START + STACKED2_DURATION;
