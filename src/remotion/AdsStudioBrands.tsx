@@ -14,11 +14,12 @@ const STACKED2_DURATION = 135; // 4.5 seconds (matches bottom clip)
 const STACKED3_DURATION = 120; // 4 seconds - matches clip, no hold on last frame
 const STACKED4_DURATION = 140; // 4.67 seconds
 const PRE_OUTRO_DURATION = 120; // 4 seconds - before second-to-last (Outro 1)
+const ROTATO_DURATION = 150; // 5 seconds - rotato brand scene
 const OUTRO1_DURATION = 90; // 3 seconds
 const OUTRO2_DURATION = 90; // 3 seconds
 
-// Total duration for fade out calculation (intro + tagline + 5 title + 4 stacked + pre-outro + 2 outros)
-const TOTAL_DURATION = INTRO_DURATION + TAGLINE_DURATION + TITLE1_DURATION + (TITLE_DURATION * 4) + STACKED_DURATION + STACKED2_DURATION + STACKED3_DURATION + STACKED4_DURATION + PRE_OUTRO_DURATION + OUTRO1_DURATION + OUTRO2_DURATION;
+// Total duration for fade out calculation (intro + tagline + 5 title + 4 stacked + pre-outro + rotato + 2 outros)
+const TOTAL_DURATION = INTRO_DURATION + TAGLINE_DURATION + TITLE1_DURATION + (TITLE_DURATION * 4) + STACKED_DURATION + STACKED2_DURATION + STACKED3_DURATION + STACKED4_DURATION + PRE_OUTRO_DURATION + ROTATO_DURATION + OUTRO1_DURATION + OUTRO2_DURATION;
 
 export const AdsStudioBrands: React.FC = () => {
   // Scene start times
@@ -34,7 +35,8 @@ export const AdsStudioBrands: React.FC = () => {
   const scene9Start = scene8Start + STACKED3_DURATION;   // Title 5 (after Glider Wings)
   const scene10Start = scene9Start + TITLE_DURATION;    // Stacked 4
   const preOutroStart = scene10Start + STACKED4_DURATION; // Pre-outro (before Outro 1)
-  const scene11Start = preOutroStart + PRE_OUTRO_DURATION; // Outro 1
+  const rotatoStart = preOutroStart + PRE_OUTRO_DURATION; // Rotato brand scene
+  const scene11Start = rotatoStart + ROTATO_DURATION; // Outro 1
   const scene12Start = scene11Start + OUTRO1_DURATION;   // Outro 2
 
   return (
@@ -178,6 +180,21 @@ export const AdsStudioBrands: React.FC = () => {
           <Video
             muted
             src={staticFile("ads-studio-brands-preoutro-9x16-new.mp4")}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+          />
+        </AbsoluteFill>
+      </Sequence>
+
+      {/* Rotato: brand scene */}
+      <Sequence from={rotatoStart} durationInFrames={ROTATO_DURATION}>
+        <AbsoluteFill>
+          <Video
+            muted
+            src={staticFile("rotato-brand-9x16.mp4")}
             style={{
               width: "100%",
               height: "100%",
