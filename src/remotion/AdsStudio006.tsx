@@ -97,7 +97,7 @@ export const AdsStudio006: React.FC = () => {
         <AbsoluteFill>
           <Video
             muted
-            src={staticFile("ads-studio-006-outro1.mp4")}
+            src={staticFile("outro-9x16.mp4")}
             style={{
               width: "100%",
               height: "100%",
@@ -112,7 +112,7 @@ export const AdsStudio006: React.FC = () => {
         <AbsoluteFill>
           <Video
             muted
-            src={staticFile("ads-studio-006-outro2.mp4")}
+            src={staticFile("outro-9-16.mp4")}
             style={{
               width: "100%",
               height: "100%",

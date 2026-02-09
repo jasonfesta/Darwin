@@ -24,8 +24,8 @@ export const AdsStudioBrands: React.FC = () => {
   const scene1Start = 0;
   const taglineStart = INTRO_DURATION;
   const scene2Start = taglineStart + TAGLINE_DURATION;
-  const scene3Start = scene2Start + TITLE_DURATION;
-  const scene4Start = scene3Start + TITLE_DURATION;
+  const scene2bStart = scene2Start + TITLE_DURATION;     // New Title 1b
+  const scene4Start = scene2bStart + TITLE_DURATION;
   const scene5Start = scene4Start + STACKED_DURATION;
   const scene6Start = scene5Start + TITLE_DURATION;
   const scene7Start = scene6Start + STACKED2_DURATION;
@@ -87,12 +87,12 @@ export const AdsStudioBrands: React.FC = () => {
         </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 3: Title 2 - Before Beverage */}
-      <Sequence from={scene3Start} durationInFrames={TITLE_DURATION}>
+      {/* Scene 2b: Title 1b - New title after Title 1 */}
+      <Sequence from={scene2bStart} durationInFrames={TITLE_DURATION}>
         <AbsoluteFill>
           <Video
             muted
-            src={staticFile("ads-studio-brands-title2.mp4")}
+            src={staticFile("ads-studio-brands-title1b.mp4")}
             style={{
               width: "100%",
               height: "100%",
@@ -108,12 +108,12 @@ export const AdsStudioBrands: React.FC = () => {
         <DemoPlacementText />
       </Sequence>
 
-      {/* Scene 5: Title 3 - sam_35 */}
+      {/* Scene 5: Title 3 - title podcast */}
       <Sequence from={scene5Start} durationInFrames={TITLE_DURATION}>
         <AbsoluteFill>
           <Video
             muted
-            src={staticFile("sam_35.mp4")}
+            src={staticFile("02-title-podcast-9x16-scene5.mp4")}
             style={{
               width: "100%",
               height: "100%",
@@ -176,7 +176,7 @@ export const AdsStudioBrands: React.FC = () => {
         <AbsoluteFill>
           <Video
             muted
-            src={staticFile("ads-studio-brands-preoutro-9x16.mp4")}
+            src={staticFile("ads-studio-brands-preoutro-9x16-new.mp4")}
             style={{
               width: "100%",
               height: "100%",
@@ -191,7 +191,7 @@ export const AdsStudioBrands: React.FC = () => {
         <AbsoluteFill>
           <Video
             muted
-            src={staticFile("ads-studio-007-outro1.mp4")}
+            src={staticFile("outro-9x16.mp4")}
             style={{
               width: "100%",
               height: "100%",
@@ -206,7 +206,7 @@ export const AdsStudioBrands: React.FC = () => {
         <AbsoluteFill>
           <Video
             muted
-            src={staticFile("ads-studio-007-outro2.mp4")}
+            src={staticFile("outro-9-16.mp4")}
             style={{
               width: "100%",
               height: "100%",
@@ -219,12 +219,24 @@ export const AdsStudioBrands: React.FC = () => {
   );
 };
 
-// Background music - fade out over last 5 seconds only
+// Background music - fade out over last 5 seconds, duck during creator audio (Scene 4, 6, 8, and 10)
 const FADE_OUT_DURATION_FRAMES = 30 * 5; // 5 seconds
+const SCENE4_START = INTRO_DURATION + TAGLINE_DURATION + (TITLE_DURATION * 2); // After intro + tagline + 2 titles
+const SCENE4_END = SCENE4_START + STACKED_DURATION;
+const SCENE6_START = SCENE4_END + TITLE_DURATION; // After scene 5 (title)
+const SCENE6_END = SCENE6_START + STACKED2_DURATION;
+const SCENE8_START = SCENE6_END + TITLE_DURATION; // After scene 7 (title)
+const SCENE8_END = SCENE8_START + STACKED3_DURATION;
+const SCENE10_START = SCENE8_END + TITLE_DURATION; // After scene 9 (title)
+const SCENE10_END = SCENE10_START + STACKED4_DURATION;
+const DUCK_TRANSITION_FRAMES = 10; // Smooth transition frames
+
 const BackgroundMusic: React.FC = () => {
   const frame = useCurrentFrame();
   const fadeOutStart = TOTAL_DURATION - FADE_OUT_DURATION_FRAMES;
-  const volume = interpolate(
+  
+  // Base volume with fade out at end
+  const baseVolume = interpolate(
     frame,
     [0, fadeOutStart, TOTAL_DURATION],
     [0.35, 0.35, 0],
@@ -234,26 +246,90 @@ const BackgroundMusic: React.FC = () => {
       easing: Easing.out(Easing.cubic),
     }
   );
+  
+  // Duck volume during Scene 4 (creator audio playing)
+  const duck4 = interpolate(
+    frame,
+    [
+      SCENE4_START - DUCK_TRANSITION_FRAMES,
+      SCENE4_START,
+      SCENE4_END,
+      SCENE4_END + DUCK_TRANSITION_FRAMES,
+    ],
+    [1, 0.3, 0.3, 1],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
+  
+  // Duck volume during Scene 6 (creator audio playing - stacked2-top)
+  const duck6 = interpolate(
+    frame,
+    [
+      SCENE6_START - DUCK_TRANSITION_FRAMES,
+      SCENE6_START,
+      SCENE6_END,
+      SCENE6_END + DUCK_TRANSITION_FRAMES,
+    ],
+    [1, 0.3, 0.3, 1],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
+  
+  // Duck volume during Scene 8 (creator audio playing - stacked3-new-top)
+  const duck8 = interpolate(
+    frame,
+    [
+      SCENE8_START - DUCK_TRANSITION_FRAMES,
+      SCENE8_START,
+      SCENE8_END,
+      SCENE8_END + DUCK_TRANSITION_FRAMES,
+    ],
+    [1, 0.3, 0.3, 1],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
+  
+  // Duck volume during Scene 10 (creator audio playing - sam-21-scene11-top) - lower more for loud creator audio
+  const duck10 = interpolate(
+    frame,
+    [
+      SCENE10_START - DUCK_TRANSITION_FRAMES,
+      SCENE10_START,
+      SCENE10_END,
+      SCENE10_END + DUCK_TRANSITION_FRAMES,
+    ],
+    [1, 0.1, 0.1, 1],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
+  
+  const volume = baseVolume * Math.min(duck4, duck6, duck8, duck10);
 
   return (
     <Audio
-      src={staticFile("ads-studio-007-music.mp3")}
+      src={staticFile("m83-outro.mp3")}
       volume={volume}
     />
   );
 };
 
-// Demo placement text overlay - bottom centered
+// Demo placement text overlay - bottom left
 const DemoPlacementText: React.FC = () => {
   return (
     <div
       style={{
         position: "absolute",
-        bottom: 80,
-        left: 0,
-        right: 0,
-        display: "flex",
-        justifyContent: "center",
+        bottom: 50,
+        left: 50,
+        opacity: 0.75,
       }}
     >
       <span
@@ -262,10 +338,34 @@ const DemoPlacementText: React.FC = () => {
           fontSize: 28,
           fontWeight: 600,
           color: "white",
-          textAlign: "center",
         }}
       >
-        Demo Placement Only.
+        Demo Paid Advertisement
+      </span>
+    </div>
+  );
+};
+
+// Before/After label for stacked videos
+const VideoLabel: React.FC<{ label: string; position: "top" | "bottom" }> = ({ label, position }) => {
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: position === "top" ? 50 : "calc(50% + 50px)",
+        left: 50,
+      }}
+    >
+      <span
+        style={{
+          fontFamily: interFont,
+          fontSize: 38,
+          fontWeight: 600,
+          color: "white",
+          textShadow: "0px 2px 8px #0a0a0a",
+        }}
+      >
+        {label}
       </span>
     </div>
   );
@@ -340,7 +440,7 @@ const StackedVideoScene: React.FC = () => {
       >
         <Video
           muted
-          src={staticFile("sam_25952424207687204.mp4")}
+          src={staticFile("ads-studio-brands-scene5.mp4")}
           style={{
             width: "100%",
             height: "100%",
@@ -373,8 +473,9 @@ const StackedVideoScene: React.FC = () => {
         />
       </div>
 
-      {/* Centered title overlay */}
-      <CenteredTitleOverlay title="Hat" />
+      {/* Before/After labels */}
+      <VideoLabel label="Before" position="top" />
+      <VideoLabel label="After" position="bottom" />
     </AbsoluteFill>
   );
 };
@@ -418,7 +519,7 @@ const StackedVideoScene2: React.FC = () => {
         }}
       >
         <Video
-          muted
+          volume={0.65}
           src={staticFile("ads-studio-brands-stacked2-top.mp4")}
           style={{
             width: "100%",
@@ -429,8 +530,9 @@ const StackedVideoScene2: React.FC = () => {
         />
       </div>
 
-      {/* Centered title overlay */}
-      <CenteredTitleOverlay title="Movie Poster" />
+      {/* Before/After labels */}
+      <VideoLabel label="Before" position="top" />
+      <VideoLabel label="After" position="bottom" />
     </AbsoluteFill>
   );
 };
@@ -451,8 +553,8 @@ const StackedVideoScene3: React.FC = () => {
         }}
       >
         <Video
-          muted
-          src={staticFile("sam_910936404740965.mp4")}
+          volume={0.65}
+          src={staticFile("ads-studio-brands-stacked3-new-top.mp4")}
           style={{
             width: "100%",
             height: "100%",
@@ -473,7 +575,7 @@ const StackedVideoScene3: React.FC = () => {
         }}
       >
         <Video
-          muted
+          volume={0.65}
           src={staticFile("ads-studio-brands-stacked3-top.mp4")}
           style={{
             width: "100%",
@@ -483,8 +585,9 @@ const StackedVideoScene3: React.FC = () => {
         />
       </div>
 
-      {/* Centered title overlay */}
-      <CenteredTitleOverlay title="Paraglider Canopy" />
+      {/* Before/After labels */}
+      <VideoLabel label="Before" position="top" />
+      <VideoLabel label="After" position="bottom" />
     </AbsoluteFill>
   );
 };
@@ -504,8 +607,8 @@ const StackedVideoScene4: React.FC = () => {
         }}
       >
         <Video
-          muted
-          src={staticFile("sam_2119745172119369.mp4")}
+          volume={2}
+          src={staticFile("sam-21-scene11-top.mp4")}
           style={{
             width: "100%",
             height: "100%",
@@ -536,7 +639,9 @@ const StackedVideoScene4: React.FC = () => {
         />
       </div>
 
-      <CenteredTitleOverlay title="Minion T-shirt" />
+      {/* Before/After labels */}
+      <VideoLabel label="Before" position="top" />
+      <VideoLabel label="After" position="bottom" />
     </AbsoluteFill>
   );
 };

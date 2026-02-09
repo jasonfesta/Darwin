@@ -162,12 +162,12 @@ export const AdsStudio008_16x9: React.FC = () => {
         </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 9: Outro 2 (Logo) */}
+      {/* Scene 9: Outro 1 (Logo) */}
       <Sequence from={scene9Start} durationInFrames={OUTRO1_DURATION}>
         <AbsoluteFill>
           <Video
             muted
-            src={staticFile("ads-studio-008-16x9-outro2.mp4")}
+            src={staticFile("outro-logo-16x9.mp4")}
             style={{
               width: "100%",
               height: "100%",
@@ -177,12 +177,12 @@ export const AdsStudio008_16x9: React.FC = () => {
         </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 10: Outro 1 */}
+      {/* Scene 10: Outro 2 */}
       <Sequence from={scene10Start} durationInFrames={OUTRO2_DURATION}>
         <AbsoluteFill>
           <Video
             muted
-            src={staticFile("ads-studio-008-16x9-outro1.mp4")}
+            src={staticFile("domain-16x9.mp4")}
             style={{
               width: "100%",
               height: "100%",
@@ -195,17 +195,15 @@ export const AdsStudio008_16x9: React.FC = () => {
   );
 };
 
-// Demo placement text overlay - bottom centered
+// Demo placement text overlay - bottom left
 const DemoPlacementText: React.FC = () => {
   return (
     <div
       style={{
         position: "absolute",
-        bottom: 80,
-        left: 0,
-        right: 0,
-        display: "flex",
-        justifyContent: "center",
+        bottom: 50,
+        left: 50,
+        opacity: 0.75,
       }}
     >
       <span
@@ -214,10 +212,34 @@ const DemoPlacementText: React.FC = () => {
           fontSize: 28,
           fontWeight: 600,
           color: "white",
-          textAlign: "center",
         }}
       >
-        Demo Placement Only.
+        Demo Paid Advertisement
+      </span>
+    </div>
+  );
+};
+
+// Before/After label for stacked videos (side by side in 16x9)
+const VideoLabel: React.FC<{ label: string; position: "left" | "right" }> = ({ label, position }) => {
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: 50,
+        left: position === "left" ? 50 : "calc(50% + 50px)",
+      }}
+    >
+      <span
+        style={{
+          fontFamily: interFont,
+          fontSize: 38,
+          fontWeight: 600,
+          color: "white",
+          textShadow: "0px 2px 8px #0a0a0a",
+        }}
+      >
+        {label}
       </span>
     </div>
   );
@@ -244,58 +266,6 @@ const BackgroundMusic: React.FC = () => {
       src={staticFile("ads-studio-007-music.mp3")}
       volume={volume}
     />
-  );
-};
-
-// Centered title overlay - vertically centered with fade in and slide up
-const CenteredTitleOverlay: React.FC<{ title: string }> = ({ title }) => {
-  const frame = useCurrentFrame();
-  
-  // Title fade in and slide up
-  const titleOpacity = interpolate(
-    frame,
-    [0, 12],
-    [0, 1],
-    {
-      extrapolateRight: "clamp",
-    }
-  );
-  
-  const titleY = interpolate(
-    frame,
-    [0, 12],
-    [30, 0],
-    {
-      easing: Easing.out(Easing.cubic),
-      extrapolateRight: "clamp",
-    }
-  );
-
-  return (
-    <AbsoluteFill
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <div
-        style={{
-          fontFamily: interFont,
-          fontSize: 72,
-          fontWeight: 600,
-          color: "white",
-          backgroundColor: "rgba(0, 0, 0, 0.6)",
-          padding: "20px 50px",
-          borderRadius: 16,
-          textAlign: "center",
-          opacity: titleOpacity,
-          transform: `translateY(${titleY}px)`,
-        }}
-      >
-        {title}
-      </div>
-    </AbsoluteFill>
   );
 };
 
@@ -349,8 +319,9 @@ const StackedVideoScene: React.FC = () => {
         />
       </div>
 
-      {/* Centered title overlay */}
-      <CenteredTitleOverlay title="Shoes" />
+      {/* Before/After labels */}
+      <VideoLabel label="Before" position="left" />
+      <VideoLabel label="After" position="right" />
     </AbsoluteFill>
   );
 };
@@ -405,8 +376,9 @@ const StackedVideoScene2: React.FC = () => {
         />
       </div>
 
-      {/* Centered title overlay */}
-      <CenteredTitleOverlay title="Coat" />
+      {/* Before/After labels */}
+      <VideoLabel label="Before" position="left" />
+      <VideoLabel label="After" position="right" />
     </AbsoluteFill>
   );
 };
@@ -461,8 +433,9 @@ const StackedVideoScene3: React.FC = () => {
         />
       </div>
 
-      {/* Centered title overlay */}
-      <CenteredTitleOverlay title="Peacoat & Sweater" />
+      {/* Before/After labels */}
+      <VideoLabel label="Before" position="left" />
+      <VideoLabel label="After" position="right" />
     </AbsoluteFill>
   );
 };

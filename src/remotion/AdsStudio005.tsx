@@ -3,17 +3,15 @@ import { loadFont } from "@remotion/google-fonts/Inter";
 
 const { fontFamily: interFont } = loadFont();
 
-// Demo placement text overlay - bottom centered
+// Demo placement text overlay - bottom left
 const DemoPlacementText: React.FC = () => {
   return (
     <div
       style={{
         position: "absolute",
-        bottom: 80,
-        left: 0,
-        right: 0,
-        display: "flex",
-        justifyContent: "center",
+        bottom: 50,
+        left: 50,
+        opacity: 0.75,
       }}
     >
       <span
@@ -22,10 +20,34 @@ const DemoPlacementText: React.FC = () => {
           fontSize: 28,
           fontWeight: 600,
           color: "white",
-          textAlign: "center",
         }}
       >
-        Demo Placement Only.
+        Demo Paid Advertisement
+      </span>
+    </div>
+  );
+};
+
+// Before/After label for stacked videos
+const VideoLabel: React.FC<{ label: string; position: "top" | "bottom" }> = ({ label, position }) => {
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: position === "top" ? 50 : "calc(50% + 50px)",
+        left: 50,
+      }}
+    >
+      <span
+        style={{
+          fontFamily: interFont,
+          fontSize: 38,
+          fontWeight: 600,
+          color: "white",
+          textShadow: "0px 2px 8px #0a0a0a",
+        }}
+      >
+        {label}
       </span>
     </div>
   );
@@ -135,14 +157,34 @@ export const AdsStudio005: React.FC = () => {
         <FinalMotionText2 />
       </Sequence>
 
-      {/* Scene 11: Logo outro */}
+      {/* Scene 11: Outro 1 */}
       <Sequence from={SCENE1_DURATION + SCENE2_DURATION + SCENE3_DURATION + SCENE4A_DURATION + SCENE4B_DURATION + SCENE5_DURATION + TITLED_SCENE_DURATION * 3 + FINAL_TEXT_1_DURATION + FINAL_TEXT_2_DURATION} durationInFrames={LOGO_OUTRO_DURATION}>
-        <LogoOutro />
+        <AbsoluteFill>
+          <Video
+            muted
+            src={staticFile("outro-9x16.mp4")}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+          />
+        </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 12: URL slide in */}
+      {/* Scene 12: Outro 2 */}
       <Sequence from={SCENE1_DURATION + SCENE2_DURATION + SCENE3_DURATION + SCENE4A_DURATION + SCENE4B_DURATION + SCENE5_DURATION + TITLED_SCENE_DURATION * 3 + FINAL_TEXT_1_DURATION + FINAL_TEXT_2_DURATION + LOGO_OUTRO_DURATION} durationInFrames={URL_SCENE_DURATION}>
-        <UrlSlideIn />
+        <AbsoluteFill>
+          <Video
+            muted
+            src={staticFile("outro-9-16.mp4")}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+          />
+        </AbsoluteFill>
       </Sequence>
     </AbsoluteFill>
   );
