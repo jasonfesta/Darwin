@@ -130,7 +130,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="2-11-update-16x9"
         component={Update211_16x9}
-        durationInFrames={3485}
+        durationInFrames={4953}
         fps={30}
         width={1920}
         height={1080}

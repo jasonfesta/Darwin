@@ -428,9 +428,6 @@ const StackedVideoScene2: React.FC = () => {
         />
       </div>
 
-      {/* Centered title overlay */}
-      <CenteredTitleOverlay title="Beverage" />
-
       {/* Before/After labels */}
       <VideoLabel label="Before" position="top" />
       <VideoLabel label="After" position="bottom" />
@@ -485,9 +482,6 @@ const StackedVideoScene3: React.FC = () => {
           }}
         />
       </div>
-
-      {/* Centered title overlay */}
-      <CenteredTitleOverlay title="Food" />
 
       {/* Before/After labels */}
       <VideoLabel label="Before" position="top" />

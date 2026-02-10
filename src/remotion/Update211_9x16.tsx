@@ -15,7 +15,7 @@ const scene2 = { name: "Main Title", clip: "2-11-update-main-title-9x16.mp4", du
 // Part 2: Brand Section
 const scene3 = { name: "Brand Title 1", clip: "2-11-update-large-title-9x16.mp4", duration: 120 };
 const scene4 = { name: "Brand Title 2", clip: "small-title-9x16-new.mp4", duration: 120 };
-const scene5 = { name: "Brand Step 1", clip: "rotato-brand-9x16.mp4", duration: 150 };
+const scene5 = { name: "Brand Step 1", clip: "step-1-brands-9x16.mov", duration: 300 };
 const scene6 = { name: "Brand Title 3", clip: "small-title-9x16-2-new.mp4", duration: 120 };
 const scene7 = { name: "Brand Step 2", clip: "rotato-brand-step2-9x16.mp4", duration: 150 };
 const scene8 = { name: "Brand Title 4", clip: "small-title-9x16-3-new.mp4", duration: 120 };
@@ -363,7 +363,6 @@ export const Update211_9x16: React.FC = () => {
       {/* Scene 5 */}
       <Sequence name={`Scene 5: ${scene5.name}`} from={getStartTime(4)} durationInFrames={scene5.duration}>
         <Video src={staticFile(scene5.clip)} />
-        <StepTitle text="Step One: Info Lookup & Asset Upload" duration={scene5.duration} />
       </Sequence>
 
       {/* Scene 6 */}

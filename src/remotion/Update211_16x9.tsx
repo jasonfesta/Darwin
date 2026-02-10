@@ -15,11 +15,11 @@ const scene2 = { name: "Main Title", clip: "2-11-update-main-title-16x9-new.mp4"
 // Part 2: Brand Section
 const scene3 = { name: "Brand Title 1", clip: "2-11-update-large-title-16x9.mp4", duration: 120 };
 const scene4 = { name: "Brand Title 2", clip: "large-title-16x9-new.mp4", duration: 120 };
-const scene5 = { name: "Brand Step 1", clip: "rotato-brand-16x9.mp4", duration: 150 };
+const scene5 = { name: "Brand Step 1", clip: "scene5-16x9.mp4", duration: 300 };
 const scene6 = { name: "Brand Title 3", clip: "small-title-16x9-2-new.mp4", duration: 120 };
-const scene7 = { name: "Brand Step 2", clip: "rotato-brand-step2-16x9.mp4", duration: 150 };
+const scene7 = { name: "Brand Step 2", clip: "scene7-16x9.mp4", duration: 779 };
 const scene8 = { name: "Brand Title 4", clip: "large-title-16x9-2-new.mp4", duration: 120 };
-const scene9 = { name: "Brand Step 3", clip: "rotato-brand-step3-16x9.mp4", duration: 150 };
+const scene9 = { name: "Brand Step 3", clip: "scene9-16x9.mp4", duration: 839 };
 const scene10 = { name: "Brand Title 5", clip: "large-title-16x9-3.mp4", duration: 120 };
 
 // Part 3: Creator Section
@@ -111,7 +111,7 @@ const FadeWrapper: React.FC<{ children: React.ReactNode; duration: number }> = (
 };
 
 // Step title with fade in/out animation
-const StepTitle: React.FC<{ text: string; duration: number }> = ({ text, duration }) => {
+const StepTitle: React.FC<{ text: string; duration: number; bottom?: number }> = ({ text, duration, bottom }) => {
   const frame = useCurrentFrame();
   const fadeFrames = 15; // 0.5 second fade
   
@@ -132,7 +132,8 @@ const StepTitle: React.FC<{ text: string; duration: number }> = ({ text, duratio
         right: 0,
         display: "flex",
         justifyContent: "center",
-        alignItems: "center",
+        alignItems: bottom !== undefined ? "flex-end" : "center",
+        paddingBottom: bottom,
         opacity,
       }}
     >
@@ -389,7 +390,6 @@ export const Update211_16x9: React.FC = () => {
       {/* Scene 5 */}
       <Sequence name={`Scene 5: ${scene5.name}`} from={getStartTime(4)} durationInFrames={scene5.duration}>
         <Video src={staticFile(scene5.clip)} />
-        <StepTitle text="Step One: Info Lookup & Asset Upload" duration={scene5.duration} />
       </Sequence>
 
       {/* Scene 6 */}
@@ -402,7 +402,7 @@ export const Update211_16x9: React.FC = () => {
       {/* Scene 7 */}
       <Sequence name={`Scene 7: ${scene7.name}`} from={getStartTime(6)} durationInFrames={scene7.duration}>
         <Video src={staticFile(scene7.clip)} />
-        <StepTitle text="Step Two: Placement Previews & Brand Preferences" duration={scene7.duration} />
+        <StepTitle text="Step Two: Placement Previews & Brand Preferences" duration={scene7.duration} bottom={88} />
       </Sequence>
 
       {/* Scene 8 */}
@@ -415,7 +415,7 @@ export const Update211_16x9: React.FC = () => {
       {/* Scene 9 */}
       <Sequence name={`Scene 9: ${scene9.name}`} from={getStartTime(8)} durationInFrames={scene9.duration}>
         <Video src={staticFile(scene9.clip)} />
-        <StepTitle text="Step Three: Campaign Creation" duration={scene9.duration} />
+        <StepTitle text="Step Three: Campaign Creation" duration={scene9.duration} bottom={88} />
       </Sequence>
 
       {/* Scene 10 */}
