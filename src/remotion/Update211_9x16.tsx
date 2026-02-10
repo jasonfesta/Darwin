@@ -18,16 +18,16 @@ const scene4 = { name: "Brand Title 1", clip: "main-title-9x16-2.mp4", duration:
 const scene5 = { name: "Brand Title 2", clip: "small-title-9x16-new.mp4", duration: 120 };
 const scene6 = { name: "Brand Step 1", clip: "step-1-brands.mp4", duration: 300 };
 const scene7 = { name: "Brand Title 3", clip: "small-title-9x16-2-new.mp4", duration: 120 };
-const scene8 = { name: "Brand Step 2", clip: "step-1-brands-002.mp4", duration: 780 };
+const scene8 = { name: "Brand Step 2", clip: "step-1-brands-002.mp4", duration: 390 };
 const scene9 = { name: "Brand Title 4", clip: "small-title-9x16-3-new.mp4", duration: 120 };
 const scene10 = { name: "Brand Step 3", clip: "step-1-brands-003.mp4", duration: 780 };
 const scene11 = { name: "Brand Title 5", clip: "main-title-9x16-3.mp4", duration: 120 };
 
 // Part 3: Creator Section
 const scene12 = { name: "Creator Title 1", clip: "small-title-9x16-scene11.mp4", duration: 120 };
-const scene13 = { name: "Creator Step 1", clip: "step-1-creators-001.mp4", duration: 780 };
+const scene13 = { name: "Creator Step 1", clip: "step-1-creators-001.mp4", duration: 390 };
 const scene14 = { name: "Creator Title 2", clip: "small-title-9x16-scene13.mp4", duration: 120 };
-const scene15 = { name: "Creator Step 2", clip: "step-1-creators-002.mp4", duration: 600 };
+const scene15 = { name: "Creator Step 2", clip: "step-1-creators-002.mp4", duration: 300 };
 const scene16 = { name: "Creator Title 3", clip: "small-title-9x16-scene15.mp4", duration: 120 };
 const scene17 = { name: "Creator Step 3", clip: "step-1-creators-003.mp4", duration: 600 };
 const scene18 = { name: "Creator Title 4", clip: "main-title-9x16-6.mp4", duration: 120 };
@@ -155,6 +155,44 @@ const StepTitle: React.FC<{ text: string; duration: number }> = ({ text, duratio
   );
 };
 
+// Step caption - lower left, Inter semi-bold, 38px with bottom gradient
+const StepCaption: React.FC<{ text: string }> = ({ text }) => {
+  return (
+    <>
+      {/* Bottom gradient */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: 200,
+          background: "linear-gradient(to top, #0a0a0a 0%, rgba(10, 10, 10, 0) 100%)",
+        }}
+      />
+      {/* Caption text */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 50,
+          left: 50,
+        }}
+      >
+        <span
+          style={{
+            fontFamily: interFont,
+            fontSize: 38,
+            fontWeight: 600,
+            color: "white",
+          }}
+        >
+          {text}
+        </span>
+      </div>
+    </>
+  );
+};
+
 // Intro scene with quick audio fade-in
 // Uses OffthreadVideo to ensure the first frame is visible immediately (no black frame)
 const IntroScene: React.FC<{ clip: string }> = ({ clip }) => {
@@ -197,7 +235,7 @@ const DemoPlacementText: React.FC = () => {
 };
 
 // Stacked videos - top and bottom for 9x16
-const StackedScene: React.FC<{ clipTop: string; clipBottom: string; objectPosition?: string; audioFrom?: "top" | "bottom" }> = ({ clipTop, clipBottom, objectPosition = "center center", audioFrom = "bottom" }) => {
+const StackedScene: React.FC<{ clipTop: string; clipBottom: string; objectPosition?: string; audioFrom?: "top" | "bottom" | "none" }> = ({ clipTop, clipBottom, objectPosition = "center center", audioFrom = "bottom" }) => {
   return (
     <AbsoluteFill style={{ backgroundColor: "#0a0a0a" }}>
       {/* Top video */}
@@ -292,8 +330,8 @@ export const Update211_9x16: React.FC = () => {
   
   return (
     <AbsoluteFill style={{ backgroundColor: "#0a0a0a" }}>
-      {/* Background Music - starts 1 second before scene 2 */}
-      <Sequence from={getStartTime(1) - 30} durationInFrames={TOTAL_DURATION - getStartTime(1) + 30}>
+      {/* Background Music - starts 1 second before scene 2, extends to end */}
+      <Sequence from={getStartTime(1) - 30} durationInFrames={TOTAL_DURATION - (getStartTime(1) - 30)}>
         <Audio src={staticFile(music)} volume={musicVolume} />
       </Sequence>
 
@@ -328,6 +366,7 @@ export const Update211_9x16: React.FC = () => {
       {/* Scene 6 */}
       <Sequence name={`Scene 6: ${scene6.name}`} from={getStartTime(5)} durationInFrames={scene6.duration}>
         <Video src={staticFile(scene6.clip)} />
+        <StepCaption text="Step One: Info Lookup & Asset Upload" />
       </Sequence>
 
       {/* Scene 7 */}
@@ -339,7 +378,8 @@ export const Update211_9x16: React.FC = () => {
 
       {/* Scene 8 */}
       <Sequence name={`Scene 8: ${scene8.name}`} from={getStartTime(7)} durationInFrames={scene8.duration}>
-        <Video src={staticFile(scene8.clip)} />
+        <Video src={staticFile(scene8.clip)} playbackRate={2} />
+        <StepCaption text="Step Two: Placement Previews & Brand Preferences" />
       </Sequence>
 
       {/* Scene 9 */}
@@ -352,6 +392,7 @@ export const Update211_9x16: React.FC = () => {
       {/* Scene 10 */}
       <Sequence name={`Scene 10: ${scene10.name}`} from={getStartTime(9)} durationInFrames={scene10.duration}>
         <Video src={staticFile(scene10.clip)} />
+        <StepCaption text="Step Three: Campaign Creation" />
       </Sequence>
 
       {/* Scene 11 */}
@@ -370,7 +411,8 @@ export const Update211_9x16: React.FC = () => {
 
       {/* Scene 13 */}
       <Sequence name={`Scene 13: ${scene13.name}`} from={getStartTime(12)} durationInFrames={scene13.duration}>
-        <Video src={staticFile(scene13.clip)} />
+        <Video src={staticFile(scene13.clip)} playbackRate={2} />
+        <StepCaption text="Step One: Profile Lookup & Account Syncing" />
       </Sequence>
 
       {/* Scene 14 */}
@@ -382,7 +424,8 @@ export const Update211_9x16: React.FC = () => {
 
       {/* Scene 15 */}
       <Sequence name={`Scene 15: ${scene15.name}`} from={getStartTime(14)} durationInFrames={scene15.duration}>
-        <Video src={staticFile(scene15.clip)} />
+        <Video src={staticFile(scene15.clip)} playbackRate={2} />
+        <StepCaption text="Step Two: Ad Slot Previews & Creator Preferences" />
       </Sequence>
 
       {/* Scene 16 */}
@@ -395,6 +438,7 @@ export const Update211_9x16: React.FC = () => {
       {/* Scene 17 */}
       <Sequence name={`Scene 17: ${scene17.name}`} from={getStartTime(16)} durationInFrames={scene17.duration}>
         <Video src={staticFile(scene17.clip)} />
+        <StepCaption text="Step Three: Ad Slot Creation" />
       </Sequence>
 
       {/* Scene 18 */}
@@ -413,17 +457,17 @@ export const Update211_9x16: React.FC = () => {
 
       {/* Scene 20 */}
       <Sequence name={`Scene 20: ${scene20.name}`} from={getStartTime(19)} durationInFrames={scene20.duration}>
-        <StackedScene clipTop={scene20.clipTop} clipBottom={scene20.clipBottom} />
+        <StackedScene clipTop={scene20.clipTop} clipBottom={scene20.clipBottom} audioFrom="none" />
       </Sequence>
 
       {/* Scene 21 */}
       <Sequence name={`Scene 21: ${scene21.name}`} from={getStartTime(20)} durationInFrames={scene21.duration}>
-        <StackedScene clipTop={scene21.clipTop} clipBottom={scene21.clipBottom} objectPosition="center top" />
+        <StackedScene clipTop={scene21.clipTop} clipBottom={scene21.clipBottom} objectPosition="center top" audioFrom="none" />
       </Sequence>
 
       {/* Scene 22 */}
       <Sequence name={`Scene 22: ${scene22.name}`} from={getStartTime(21)} durationInFrames={scene22.duration}>
-        <StackedScene clipTop={scene22.clipTop} clipBottom={scene22.clipBottom} objectPosition="center top" />
+        <StackedScene clipTop={scene22.clipTop} clipBottom={scene22.clipBottom} objectPosition="center top" audioFrom="none" />
       </Sequence>
 
       {/* Scene 23 */}
