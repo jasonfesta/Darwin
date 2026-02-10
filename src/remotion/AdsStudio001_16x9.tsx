@@ -225,8 +225,6 @@ export const AdsStudio001_16x9: React.FC = () => {
             />
           </div>
 
-          {/* Centered title overlay */}
-          <CenteredTitleOverlay title="Supplement" />
           <DemoPlacementText />
           {/* Before/After labels */}
           <VideoLabel label="Before" position="left" />

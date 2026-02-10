@@ -104,7 +104,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="wayve-nature-9x16"
         component={WayveNature_9x16}
-        durationInFrames={1620}
+        durationInFrames={1710}
         fps={30}
         width={1080}
         height={1920}
@@ -112,7 +112,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="wayve-nature-16x9"
         component={WayveNature_16x9}
-        durationInFrames={1620}
+        durationInFrames={1710}
         fps={30}
         width={1920}
         height={1080}

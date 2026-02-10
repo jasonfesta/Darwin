@@ -250,8 +250,6 @@ const StackedVideoScene: React.FC = () => {
         />
       </div>
 
-      {/* Centered title overlay */}
-      <CenteredTitleOverlay title="Supplement" />
     </AbsoluteFill>
   );
 };

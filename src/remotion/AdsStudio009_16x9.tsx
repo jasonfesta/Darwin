@@ -38,7 +38,7 @@ export const AdsStudio009_16x9: React.FC = () => {
       <BackgroundMusic />
 
       {/* Scene 1: Intro */}
-      <Sequence from={scene1Start} durationInFrames={INTRO_DURATION}>
+      <Sequence name="Scene 1: Intro" from={scene1Start} durationInFrames={INTRO_DURATION}>
         <AbsoluteFill>
           <Video
             volume={0.65}
@@ -53,8 +53,8 @@ export const AdsStudio009_16x9: React.FC = () => {
         </AbsoluteFill>
       </Sequence>
 
-      {/* Tagline: before Scene 2 */}
-      <Sequence from={taglineStart} durationInFrames={TAGLINE_DURATION}>
+      {/* Scene 2: Tagline */}
+      <Sequence name="Scene 2: Tagline" from={taglineStart} durationInFrames={TAGLINE_DURATION}>
         <AbsoluteFill>
           <Video
             muted
@@ -68,8 +68,8 @@ export const AdsStudio009_16x9: React.FC = () => {
         </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 2: Title 1 - Before Supplement */}
-      <Sequence from={scene2Start} durationInFrames={TITLE_DURATION}>
+      {/* Scene 3: Title - Podcast Intro */}
+      <Sequence name="Scene 3: Title - Podcast Intro" from={scene2Start} durationInFrames={TITLE_DURATION}>
         <AbsoluteFill>
           <Video
             muted
@@ -83,14 +83,14 @@ export const AdsStudio009_16x9: React.FC = () => {
         </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 4: Stacked Videos 1 - Supplement (side by side for 16x9) */}
-      <Sequence from={scene4Start} durationInFrames={STACKED_DURATION}>
+      {/* Scene 4: Stacked - Handbag Before/After */}
+      <Sequence name="Scene 4: Stacked - Handbag Before/After" from={scene4Start} durationInFrames={STACKED_DURATION}>
         <StackedVideoScene />
         <DemoPlacementText />
       </Sequence>
 
-      {/* Scene 5: Title 3 - Before Wearables */}
-      <Sequence from={scene5Start} durationInFrames={TITLE_DURATION}>
+      {/* Scene 5: Title - Wearables Intro */}
+      <Sequence name="Scene 5: Title - Wearables Intro" from={scene5Start} durationInFrames={TITLE_DURATION}>
         <AbsoluteFill>
           <Video
             muted
@@ -104,14 +104,14 @@ export const AdsStudio009_16x9: React.FC = () => {
         </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 6: Stacked Videos 2 - Beverage (side by side for 16x9) */}
-      <Sequence from={scene6Start} durationInFrames={STACKED2_DURATION}>
+      {/* Scene 6: Stacked - Wearables Before/After */}
+      <Sequence name="Scene 6: Stacked - Wearables Before/After" from={scene6Start} durationInFrames={STACKED2_DURATION}>
         <StackedVideoScene2 />
         <DemoPlacementText />
       </Sequence>
 
-      {/* Scene 7: Title 4 - Before Outro */}
-      <Sequence from={scene7Start} durationInFrames={TITLE_DURATION}>
+      {/* Scene 7: Title - Headphones Intro */}
+      <Sequence name="Scene 7: Title - Headphones Intro" from={scene7Start} durationInFrames={TITLE_DURATION}>
         <AbsoluteFill>
           <Video
             muted
@@ -125,14 +125,14 @@ export const AdsStudio009_16x9: React.FC = () => {
         </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 8: Stacked Videos 3 - Food (side by side for 16x9) */}
-      <Sequence from={scene8Start} durationInFrames={STACKED3_DURATION}>
+      {/* Scene 8: Stacked - Headphones Before/After */}
+      <Sequence name="Scene 8: Stacked - Headphones Before/After" from={scene8Start} durationInFrames={STACKED3_DURATION}>
         <StackedVideoScene3 />
         <DemoPlacementText />
       </Sequence>
 
-      {/* Pre-outro: before Outro */}
-      <Sequence from={preOutroStart} durationInFrames={PRE_OUTRO_DURATION}>
+      {/* Scene 9: Pre-Outro */}
+      <Sequence name="Scene 9: Pre-Outro" from={preOutroStart} durationInFrames={PRE_OUTRO_DURATION}>
         <AbsoluteFill>
           <Video
             muted
@@ -146,8 +146,8 @@ export const AdsStudio009_16x9: React.FC = () => {
         </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 9: Outro 1 */}
-      <Sequence from={scene9Start} durationInFrames={OUTRO1_DURATION}>
+      {/* Scene 10: Outro Logo */}
+      <Sequence name="Scene 10: Outro Logo" from={scene9Start} durationInFrames={OUTRO1_DURATION}>
         <AbsoluteFill>
           <Video
             muted
@@ -161,8 +161,8 @@ export const AdsStudio009_16x9: React.FC = () => {
         </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 10: Outro 2 (Domain) */}
-      <Sequence from={scene10Start} durationInFrames={OUTRO2_DURATION}>
+      {/* Scene 11: Outro URL */}
+      <Sequence name="Scene 11: Outro URL" from={scene10Start} durationInFrames={OUTRO2_DURATION}>
         <AbsoluteFill>
           <Video
             muted
