@@ -16,20 +16,20 @@ const scene3 = { name: "Update Title", clip: "update-title-16x9.mp4", duration: 
 // Part 2: Brand Section
 const scene4 = { name: "Brand Title 1", clip: "main-title-16x9-2.mp4", duration: 120 };
 const scene5 = { name: "Brand Title 2", clip: "large-title-16x9-new.mp4", duration: 120 };
-const scene6 = { name: "Brand Step 1", clip: "scene5-16x9.mp4", duration: 300 };
+const scene6 = { name: "Brand Step 1", clip: "step-1-brands.mp4", duration: 300 };
 const scene7 = { name: "Brand Title 3", clip: "small-title-16x9-2-new.mp4", duration: 120 };
-const scene8 = { name: "Brand Step 2", clip: "scene7-16x9.mp4", duration: 779 };
+const scene8 = { name: "Brand Step 2", clip: "step-1-brands-002.mp4", duration: 780 };
 const scene9 = { name: "Brand Title 4", clip: "large-title-16x9-2-new.mp4", duration: 120 };
-const scene10 = { name: "Brand Step 3", clip: "scene9-16x9.mp4", duration: 839 };
+const scene10 = { name: "Brand Step 3", clip: "step-1-brands-003.mp4", duration: 780 };
 const scene11 = { name: "Brand Title 5", clip: "main-title-16x9-3.mp4", duration: 120 };
 
 // Part 3: Creator Section
 const scene12 = { name: "Creator Title 1", clip: "large-title-16x9-scene11.mp4", duration: 120 };
-const scene13 = { name: "Creator Step 1", clip: "rotato-brand-16x9.mp4", duration: 150 };
+const scene13 = { name: "Creator Step 1", clip: "step-1-creators-001.mp4", duration: 780 };
 const scene14 = { name: "Creator Title 2", clip: "large-title-16x9-scene13.mp4", duration: 120 };
-const scene15 = { name: "Creator Step 2", clip: "rotato-brand-step2-16x9.mp4", duration: 150 };
+const scene15 = { name: "Creator Step 2", clip: "step-1-creators-002.mp4", duration: 600 };
 const scene16 = { name: "Creator Title 3", clip: "large-title-16x9-scene15.mp4", duration: 120 };
-const scene17 = { name: "Creator Step 3", clip: "rotato-brand-step3-16x9.mp4", duration: 150 };
+const scene17 = { name: "Creator Step 3", clip: "step-1-creators-003.mp4", duration: 600 };
 const scene18 = { name: "Creator Title 4", clip: "main-title-16x9-6.mp4", duration: 120 };
 const scene19 = { name: "Creator Title 5", clip: "example-title-16x9.mp4", duration: 120 };
 
@@ -398,7 +398,6 @@ export const Update211_16x9: React.FC = () => {
       {/* Scene 13 */}
       <Sequence name={`Scene 13: ${scene13.name}`} from={getStartTime(12)} durationInFrames={scene13.duration}>
         <Video src={staticFile(scene13.clip)} />
-        <StepTitle text="Step One: Profile Lookup & Account Syncing" duration={scene13.duration} />
       </Sequence>
 
       {/* Scene 14 */}
@@ -411,7 +410,6 @@ export const Update211_16x9: React.FC = () => {
       {/* Scene 15 */}
       <Sequence name={`Scene 15: ${scene15.name}`} from={getStartTime(14)} durationInFrames={scene15.duration}>
         <Video src={staticFile(scene15.clip)} />
-        <StepTitle text="Step Two: Ad Slot Previews & Creator Preferences" duration={scene15.duration} />
       </Sequence>
 
       {/* Scene 16 */}
@@ -424,7 +422,6 @@ export const Update211_16x9: React.FC = () => {
       {/* Scene 17 */}
       <Sequence name={`Scene 17: ${scene17.name}`} from={getStartTime(16)} durationInFrames={scene17.duration}>
         <Video src={staticFile(scene17.clip)} />
-        <StepTitle text="Step Three: Ad Slot Creation" duration={scene17.duration} />
       </Sequence>
 
       {/* Scene 18 */}
