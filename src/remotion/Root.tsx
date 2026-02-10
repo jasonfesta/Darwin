@@ -25,6 +25,9 @@ import { WayveNature_16x9 } from "./WayveNature_16x9";
 import { Update211_16x9 } from "./Update211_16x9";
 import { Update211_9x16 } from "./Update211_9x16";
 
+// Clips Sequence
+import { Main_16x9, Main_9x16 } from "./ClipsSequence";
+
 export const RemotionRoot: React.FC = () => {
   return (
     <>
@@ -122,7 +125,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="2-11-update-9x16"
         component={Update211_9x16}
-        durationInFrames={3485}
+        durationInFrames={5043}
         fps={30}
         width={1080}
         height={1920}
@@ -130,10 +133,28 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="2-11-update-16x9"
         component={Update211_16x9}
-        durationInFrames={4953}
+        durationInFrames={5043}
         fps={30}
         width={1920}
         height={1080}
+      />
+
+      {/* Clips Sequence */}
+      <Composition
+        id="main-16x9"
+        component={Main_16x9}
+        durationInFrames={480}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="main-9x16"
+        component={Main_9x16}
+        durationInFrames={480}
+        fps={30}
+        width={1080}
+        height={1920}
       />
     </>
   );
