@@ -36,7 +36,7 @@ const scene19 = { name: "Creator Title 5", clip: "example-title-16x9-2.mp4", dur
 // Part 4: Brand Demos
 const scene20 = { name: "Brand Demo 1", clip: "main-title-16x9-38.mp4", duration: 120 };
 const scene21 = { name: "Brand Demo 2", clip: "main-title-16x9-39.mp4", duration: 120 };
-const scene22 = { name: "Brand Demo 3", clip: "main-title-16x9-40.mp4", duration: 120 };
+const scene22 = { name: "Brand Demo 3", clip: "main-title-16x9-45.mp4", duration: 120 };
 
 // Part 5: Creator Demos
 const scene23 = { name: "Creator Demo Title", clip: "example-title-16x9-3.mp4", duration: 120 };
@@ -51,7 +51,7 @@ const scene28 = { name: "Outro", clip: "outro-16x9-new.mp4", duration: 90 };
 // =============================================================================
 // AUDIO
 // =============================================================================
-const music = "m83-outro.mp3";
+const music = "soft-machine-aurora.mp3";
 
 // =============================================================================
 // AUTO-CALCULATED TIMINGS (do not edit)
@@ -328,18 +328,14 @@ const StackedScene: React.FC<{ clipLeft: string; clipRight: string; objectPositi
 export const Update211_16x9: React.FC = () => {
   const frame = useCurrentFrame();
   
-  // Scene timing
-  const scene2Start = getStartTime(1);
-  
   // Fade out timing (last 10 seconds = 300 frames for very gradual fade out)
   const fadeOutStart = TOTAL_DURATION - 300;
   
   // Smooth fade in at music start (30 frames = 1 second)
   const fadeInFrames = 30;
-  const musicStartFrame = scene2Start - 30; // 1 second before scene 2
   const fadeInVolume = interpolate(
     frame,
-    [musicStartFrame, musicStartFrame + fadeInFrames],
+    [0, fadeInFrames],
     [0, 1],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: (t) => t * t * (3 - 2 * t) }
   );
@@ -356,8 +352,8 @@ export const Update211_16x9: React.FC = () => {
   
   return (
     <AbsoluteFill style={{ backgroundColor: "#0a0a0a" }}>
-      {/* Background Music - starts 1 second before scene 2, extends to end */}
-      <Sequence from={getStartTime(1) - 30} durationInFrames={TOTAL_DURATION - (getStartTime(1) - 30)}>
+      {/* Background Music - starts at 0:00, extends to end */}
+      <Sequence from={0} durationInFrames={TOTAL_DURATION}>
         <Audio src={staticFile(music)} volume={musicVolume} />
       </Sequence>
 
