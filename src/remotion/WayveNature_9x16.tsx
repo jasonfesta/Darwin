@@ -1,38 +1,66 @@
 import { AbsoluteFill, Audio, interpolate, Sequence, staticFile, useCurrentFrame, Video } from "remotion";
 
 // Scene durations in frames (30fps)
-const SCENE1_DURATION = 120;  // 4 seconds - mask-9-16.mp4
-const SCENE2_DURATION = 150;  // 5 seconds - title-podcast-9x16
-const SCENE2B_DURATION = 90;  // 3 seconds - title-podcast-9x16 (new)
-const SCENE3_DURATION = 1230; // 41 seconds - single-9x16 (1).mp4
-const SCENE4_DURATION = 90;   // 3 seconds - title-podcast-9x16 (18).mp4
-const SCENE5_DURATION = 90;   // 3 seconds - title-podcast-9x16 (17).mp4
-const SCENE6_DURATION = 90;   // 3 seconds - outro
-const SCENE7_DURATION = 90;   // 3 seconds - outro video
+const INTRO_DURATION = 120;           // 4 seconds - mask reveal
+const TITLE_DURATION = 150;           // 5 seconds - show title
+const EPISODE_TITLE_DURATION = 90;    // 3 seconds - episode title
+
+const CLIP_1_DURATION = 452;          // ~15 seconds - content clip 1
+const CLIP_1_TITLE_DURATION = 90;     // 3 seconds - clip 1 title
+const CLIP_2_DURATION = 452;          // ~15 seconds - content clip 2
+const CLIP_2_TITLE_DURATION = 90;     // 3 seconds - clip 2 title
+const CLIP_3_DURATION = 452;          // ~15 seconds - content clip 3
+
+const CTA_TITLE_DURATION = 90;        // 3 seconds - title-podcast-9x16 (7)
+const CTA_OUTRO_DURATION = 90;        // 3 seconds - outro-9x16 (5)
+
+const NEW_SCENE_2_DURATION = 90;      // 3 seconds - outro-9x16-5
 
 // Scene start times
-const SCENE1_START = 0;
-const SCENE2_START = SCENE1_START + SCENE1_DURATION;
-const SCENE2B_START = SCENE2_START + SCENE2_DURATION;
-const SCENE3_START = SCENE2B_START + SCENE2B_DURATION;
-const SCENE4_START = SCENE3_START + SCENE3_DURATION;
-const SCENE5_START = SCENE4_START + SCENE4_DURATION;
-const SCENE6_START = SCENE5_START + SCENE5_DURATION;
-const SCENE7_START = SCENE6_START + SCENE6_DURATION;
+const INTRO_START = 0;
+const TITLE_START = INTRO_START + INTRO_DURATION;
+const EPISODE_TITLE_START = TITLE_START + TITLE_DURATION;
+
+const CLIP_1_START = EPISODE_TITLE_START + EPISODE_TITLE_DURATION;
+const CLIP_1_TITLE_START = CLIP_1_START + CLIP_1_DURATION;
+const CLIP_2_START = CLIP_1_TITLE_START + CLIP_1_TITLE_DURATION;
+const CLIP_2_TITLE_START = CLIP_2_START + CLIP_2_DURATION;
+const CLIP_3_START = CLIP_2_TITLE_START + CLIP_2_TITLE_DURATION;
+
+const CTA_TITLE_START = CLIP_3_START + CLIP_3_DURATION;
+const CTA_OUTRO_START = CTA_TITLE_START + CTA_TITLE_DURATION;
+
+const NEW_SCENE_2_START = CTA_OUTRO_START + CTA_OUTRO_DURATION;
 
 // Total duration
-const TOTAL_DURATION = SCENE1_DURATION + SCENE2_DURATION + SCENE2B_DURATION + SCENE3_DURATION + SCENE4_DURATION + SCENE5_DURATION + SCENE6_DURATION + SCENE7_DURATION;
+const TOTAL_DURATION = INTRO_DURATION + TITLE_DURATION + EPISODE_TITLE_DURATION + 
+  CLIP_1_DURATION + CLIP_1_TITLE_DURATION + 
+  CLIP_2_DURATION + CLIP_2_TITLE_DURATION + 
+  CLIP_3_DURATION + 
+  CTA_TITLE_DURATION + CTA_OUTRO_DURATION +
+  NEW_SCENE_2_DURATION;
 
 // Music settings
 const FADE_DURATION = 60; // 2 seconds fade
+const END_FADE_DURATION = 120; // 4 seconds fade for smoother ending
 
-// First music segment (scenes 1, 2, and 2b, fade out starts in scene 2b)
-const MUSIC1_DURATION = SCENE1_DURATION + SCENE2_DURATION + SCENE2B_DURATION;
-const MUSIC1_FADE_OUT_START = MUSIC1_DURATION - FADE_DURATION; // Start fading near end of scene 2
+// First music segment (intro scenes - fades out before content clips)
+const MUSIC1_DURATION = INTRO_DURATION + TITLE_DURATION + EPISODE_TITLE_DURATION;
+const MUSIC1_FADE_OUT_START = MUSIC1_DURATION - FADE_DURATION;
 
-// Second music segment (scenes 4, 5, 6, and 7, fade in at start, fade out before end)
-const MUSIC2_START = SCENE4_START;
-const MUSIC2_DURATION = SCENE4_DURATION + SCENE5_DURATION + SCENE6_DURATION + SCENE7_DURATION;
+// Second music segment (CTA and outro scenes)
+const MUSIC2_START = CTA_TITLE_START;
+const MUSIC2_DURATION = CTA_TITLE_DURATION + CTA_OUTRO_DURATION + NEW_SCENE_2_DURATION;
+
+// Fade out at 1:08 (68 seconds = 2040 frames absolute) - using longer fade for smooth ending
+const MUSIC2_FADE_OUT_ABSOLUTE = 68 * 30; // 2040 frames
+const MUSIC2_FADE_OUT_RELATIVE = MUSIC2_FADE_OUT_ABSOLUTE - MUSIC2_START; // relative to sequence start
+
+// Scene 5 music (Clip 1 Title) - fade in and out within scene
+const SCENE5_MUSIC_FADE = 30; // 1 second fade
+
+// Scene 7 music (Clip 2 Title) - fade in and out within scene
+const SCENE7_MUSIC_FADE = 30; // 1 second fade
 
 const MusicPart1: React.FC = () => {
   const frame = useCurrentFrame();
@@ -58,7 +86,7 @@ const MusicPart1: React.FC = () => {
 const MusicPart2: React.FC = () => {
   const frame = useCurrentFrame();
   
-  // Fade in at start, fade out before end
+  // Fade in at start
   const fadeInVolume = interpolate(
     frame,
     [0, FADE_DURATION],
@@ -69,9 +97,10 @@ const MusicPart2: React.FC = () => {
     }
   );
   
+  // Fade out at 1:08 (68 seconds absolute) - longer fade for smoother ending
   const fadeOutVolume = interpolate(
     frame,
-    [MUSIC2_DURATION - (FADE_DURATION * 2), MUSIC2_DURATION],
+    [MUSIC2_FADE_OUT_RELATIVE - END_FADE_DURATION, MUSIC2_FADE_OUT_RELATIVE],
     [1, 0],
     {
       extrapolateLeft: "clamp",
@@ -88,127 +117,203 @@ const MusicPart2: React.FC = () => {
   );
 };
 
+// Music for Scene 5 (Clip 1 Title)
+const MusicScene5: React.FC = () => {
+  const frame = useCurrentFrame();
+  
+  // Fade in at start
+  const fadeInVolume = interpolate(
+    frame,
+    [0, SCENE5_MUSIC_FADE],
+    [0, 1],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
+  
+  // Fade out before end
+  const fadeOutVolume = interpolate(
+    frame,
+    [CLIP_1_TITLE_DURATION - SCENE5_MUSIC_FADE, CLIP_1_TITLE_DURATION],
+    [1, 0],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
+
+  return (
+    <Audio
+      src={staticFile("wayve-nature-m83-outro.mp3")}
+      volume={Math.min(fadeInVolume, fadeOutVolume)}
+    />
+  );
+};
+
+// Music for Scene 7 (Clip 2 Title)
+const MusicScene7: React.FC = () => {
+  const frame = useCurrentFrame();
+  
+  // Fade in at start
+  const fadeInVolume = interpolate(
+    frame,
+    [0, SCENE7_MUSIC_FADE],
+    [0, 1],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
+  
+  // Fade out before end
+  const fadeOutVolume = interpolate(
+    frame,
+    [CLIP_2_TITLE_DURATION - SCENE7_MUSIC_FADE, CLIP_2_TITLE_DURATION],
+    [1, 0],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
+
+  return (
+    <Audio
+      src={staticFile("wayve-nature-m83-outro.mp3")}
+      volume={Math.min(fadeInVolume, fadeOutVolume)}
+    />
+  );
+};
+
 export const WayveNature_9x16: React.FC = () => {
   return (
     <AbsoluteFill style={{ backgroundColor: "#0a0a0a" }}>
-      {/* Background Music Part 1 - plays during scenes 1 and 2, fades out during scene 2 */}
+      {/* Background Music Part 1 */}
       <Sequence from={0} durationInFrames={MUSIC1_DURATION}>
         <MusicPart1 />
       </Sequence>
 
-      {/* Background Music Part 2 - fades in at scene 4, fades out before end */}
+      {/* Background Music Part 2 */}
       <Sequence from={MUSIC2_START} durationInFrames={MUSIC2_DURATION}>
         <MusicPart2 />
       </Sequence>
 
-      {/* Scene 1: Intro Mask Reveal */}
-      <Sequence name="Scene 1: Intro Mask Reveal" from={SCENE1_START} durationInFrames={SCENE1_DURATION}>
+      {/* Background Music for Scene 5 */}
+      <Sequence from={CLIP_1_TITLE_START} durationInFrames={CLIP_1_TITLE_DURATION}>
+        <MusicScene5 />
+      </Sequence>
+
+      {/* Background Music for Scene 7 */}
+      <Sequence from={CLIP_2_TITLE_START} durationInFrames={CLIP_2_TITLE_DURATION}>
+        <MusicScene7 />
+      </Sequence>
+
+      {/* Scene 1 - Intro */}
+      <Sequence name="Scene 1" from={INTRO_START} durationInFrames={INTRO_DURATION}>
         <AbsoluteFill>
           <Video
             src={staticFile("wayve-nature-scene1.mp4")}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            }}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 2: Title - Nature Podcast */}
-      <Sequence name="Scene 2: Title - Nature Podcast" from={SCENE2_START} durationInFrames={SCENE2_DURATION}>
+      {/* Scene 2 - Title */}
+      <Sequence name="Scene 2" from={TITLE_START} durationInFrames={TITLE_DURATION}>
         <AbsoluteFill>
           <Video
             src={staticFile("wayve-nature-scene2.mp4")}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            }}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 2b: Episode Title */}
-      <Sequence name="Scene 2b: Episode Title" from={SCENE2B_START} durationInFrames={SCENE2B_DURATION}>
+      {/* Scene 3 - Episode Title */}
+      <Sequence name="Scene 3" from={EPISODE_TITLE_START} durationInFrames={EPISODE_TITLE_DURATION}>
         <AbsoluteFill>
           <Video
             src={staticFile("wayve-nature-scene2b.mp4")}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            }}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 3: Main Content - Full Episode */}
-      <Sequence name="Scene 3: Main Content - Full Episode" from={SCENE3_START} durationInFrames={SCENE3_DURATION}>
+      {/* Scene 4 - Clip 1 */}
+      <Sequence name="Scene 4" from={CLIP_1_START} durationInFrames={CLIP_1_DURATION}>
         <AbsoluteFill>
           <Video
-            src={staticFile("wayve-nature-scene3.mp4")}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            }}
+            src={staticFile("wayve-nature-scene3a.mp4")}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 4: Subscribe CTA */}
-      <Sequence name="Scene 4: Subscribe CTA" from={SCENE4_START} durationInFrames={SCENE4_DURATION}>
+      {/* Scene 5 - Clip 1 Title */}
+      <Sequence name="Scene 5" from={CLIP_1_TITLE_START} durationInFrames={CLIP_1_TITLE_DURATION}>
         <AbsoluteFill>
           <Video
-            src={staticFile("wayve-nature-scene5.mp4")}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            }}
+            src={staticFile("wayve-nature-scene3a-title.mp4")}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 5: Social Links */}
-      <Sequence name="Scene 5: Social Links" from={SCENE5_START} durationInFrames={SCENE5_DURATION}>
+      {/* Scene 6 - Clip 2 */}
+      <Sequence name="Scene 6" from={CLIP_2_START} durationInFrames={CLIP_2_DURATION}>
         <AbsoluteFill>
           <Video
-            src={staticFile("wayve-nature-scene4.mp4")}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            }}
+            src={staticFile("wayve-nature-scene3b.mp4")}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 6: Closing Animation */}
-      <Sequence name="Scene 6: Closing Animation" from={SCENE6_START} durationInFrames={SCENE6_DURATION}>
+      {/* Scene 7 - Clip 2 Title */}
+      <Sequence name="Scene 7" from={CLIP_2_TITLE_START} durationInFrames={CLIP_2_TITLE_DURATION}>
+        <AbsoluteFill>
+          <Video
+            src={staticFile("wayve-nature-scene3b-title.mp4")}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+        </AbsoluteFill>
+      </Sequence>
+
+      {/* Scene 8 - Clip 3 */}
+      <Sequence name="Scene 8" from={CLIP_3_START} durationInFrames={CLIP_3_DURATION}>
+        <AbsoluteFill>
+          <Video
+            src={staticFile("wayve-nature-scene3c.mp4")}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+        </AbsoluteFill>
+      </Sequence>
+
+      {/* Scene 9 - CTA Title */}
+      <Sequence name="Scene 9" from={CTA_TITLE_START} durationInFrames={CTA_TITLE_DURATION}>
+        <AbsoluteFill>
+          <Video
+            src={staticFile("title-podcast-9x16-9.mp4")}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+        </AbsoluteFill>
+      </Sequence>
+
+      {/* Scene 10 - CTA Outro */}
+      <Sequence name="Scene 10" from={CTA_OUTRO_START} durationInFrames={CTA_OUTRO_DURATION}>
         <AbsoluteFill>
           <Video
             src={staticFile("wayve-nature-scene7.mp4")}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            }}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 7: End Card */}
-      <Sequence name="Scene 7: End Card" from={SCENE7_START} durationInFrames={SCENE7_DURATION}>
+      {/* Scene 11 - Outro */}
+      <Sequence name="Scene 11" from={NEW_SCENE_2_START} durationInFrames={NEW_SCENE_2_DURATION}>
         <AbsoluteFill>
           <Video
-            src={staticFile("wayve-nature-scene6.mp4")}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            }}
+            src={staticFile("outro-9x16-5.mp4")}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </AbsoluteFill>
       </Sequence>

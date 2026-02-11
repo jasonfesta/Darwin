@@ -14,40 +14,39 @@ const scene2 = { name: "Main Title", clip: "main-title-16x9-new.mp4", duration: 
 const scene3 = { name: "Update Title", clip: "update-title-16x9.mp4", duration: 120 };
 
 // Part 2: Brand Section
-const scene4 = { name: "Brand Title 1", clip: "main-title-16x9-2.mp4", duration: 120 };
+const scene4 = { name: "Brand Title 1", clip: "main-title-16x9-20.mp4", duration: 120 };
 const scene5 = { name: "Brand Title 2", clip: "large-title-16x9-new.mp4", duration: 120 };
-const scene6 = { name: "Brand Step 1", clip: "step-1-brands.mp4", duration: 300 };
+const scene6 = { name: "Brand Step 1", clip: "step-1-brands-001.mov", duration: 420 };
 const scene7 = { name: "Brand Title 3", clip: "small-title-16x9-2-new.mp4", duration: 120 };
-const scene8 = { name: "Brand Step 2", clip: "step-1-brands-002.mp4", duration: 390 };
+const scene8 = { name: "Brand Step 2", clip: "step-1-brands-002-new2.mov", duration: 420 };
 const scene9 = { name: "Brand Title 4", clip: "large-title-16x9-2-new.mp4", duration: 120 };
-const scene10 = { name: "Brand Step 3", clip: "step-1-brands-003.mp4", duration: 780 };
-const scene11 = { name: "Brand Title 5", clip: "main-title-16x9-3.mp4", duration: 120 };
+const scene10 = { name: "Brand Step 3", clip: "step-1-brands-003.mov", duration: 300 };
+const scene11 = { name: "Brand Title 5", clip: "main-title-16x9-21.mp4", duration: 120 };
 
 // Part 3: Creator Section
-const scene12 = { name: "Creator Title 1", clip: "large-title-16x9-scene11.mp4", duration: 120 };
-const scene13 = { name: "Creator Step 1", clip: "step-1-creators-001.mp4", duration: 390 };
-const scene14 = { name: "Creator Title 2", clip: "large-title-16x9-scene13.mp4", duration: 120 };
-const scene15 = { name: "Creator Step 2", clip: "step-1-creators-002.mp4", duration: 300 };
-const scene16 = { name: "Creator Title 3", clip: "large-title-16x9-scene15.mp4", duration: 120 };
-const scene17 = { name: "Creator Step 3", clip: "step-1-creators-003.mp4", duration: 600 };
+const scene12 = { name: "Step One: Account Verification", clip: "step-title-16x9.mp4", duration: 120 };
+const scene13 = { name: "Creator Step 1", clip: "step-1-creators-001-new.mov", duration: 360 };
+const scene14 = { name: "Step Two: Creator Preferences", clip: "step-title-16x9-1.mp4", duration: 120 };
+const scene15 = { name: "Creator Step 2", clip: "step-1-creators-002.mov", duration: 300 };
+const scene16 = { name: "Step Three: Upload Video & Monetize", clip: "step-title-16x9-2.mp4", duration: 120 };
+const scene17 = { name: "Creator Step 3", clip: "step-1-creators-003-new.mov", duration: 165 };
 const scene18 = { name: "Creator Title 4", clip: "main-title-16x9-6.mp4", duration: 120 };
-const scene19 = { name: "Creator Title 5", clip: "example-title-16x9.mp4", duration: 120 };
+const scene19 = { name: "Creator Title 5", clip: "example-title-16x9-2.mp4", duration: 120 };
 
 // Part 4: Brand Demos
-const scene20 = { name: "Brand Demo 1", clipLeft: "ads-studio-brands-scene5.mp4", clipRight: "ads-studio-brands-stacked1-top.mp4", duration: 140, isStacked: true };
-const scene21 = { name: "Brand Demo 2", clipLeft: "scene20-after.mov", clipRight: "scene20-before.mov", duration: 125, isStacked: true };
-const scene22 = { name: "Brand Demo 3", clipLeft: "scene21-after.mp4", clipRight: "scene21-before.mov", duration: 125, isStacked: true };
+const scene20 = { name: "Brand Demo 1", clip: "main-title-16x9-38.mp4", duration: 120 };
+const scene21 = { name: "Brand Demo 2", clip: "main-title-16x9-39.mp4", duration: 120 };
+const scene22 = { name: "Brand Demo 3", clip: "main-title-16x9-40.mp4", duration: 120 };
 
 // Part 5: Creator Demos
-const scene23 = { name: "Creator Demo Title", clip: "example-title-16x9-2.mp4", duration: 120 };
-const scene24 = { name: "Creator Demo 1", clipLeft: "scene24-before.mov", clipRight: "scene24-after.mp4", duration: 140, isStacked: true };
-const scene25 = { name: "Creator Demo 2", clipLeft: "scene25-before.mov", clipRight: "scene25-after.mp4", duration: 80, isStacked: true };
-const scene26 = { name: "Creator Demo 3", clipLeft: "scene26-before.mov", clipRight: "scene26-after.mp4", duration: 125, isStacked: true };
+const scene23 = { name: "Creator Demo Title", clip: "example-title-16x9-3.mp4", duration: 120 };
+const scene24 = { name: "Creator Demo 1", clip: "main-title-16x9-41.mp4", duration: 120 };
+const scene25 = { name: "Creator Demo 2", clip: "main-title-16x9-42.mp4", duration: 120 };
+const scene26 = { name: "Creator Demo 3", clip: "main-title-16x9-43.mp4", duration: 120 };
 
 // Part 6: Outro
 const scene27 = { name: "Domain", clip: "domain-16x9-new.mp4", duration: 120 };
 const scene28 = { name: "Outro", clip: "outro-16x9-new.mp4", duration: 90 };
-const scene29 = { name: "Outro 2", clip: "outro-16x9-2.mp4", duration: 90 };
 
 // =============================================================================
 // AUDIO
@@ -57,7 +56,7 @@ const music = "m83-outro.mp3";
 // =============================================================================
 // AUTO-CALCULATED TIMINGS (do not edit)
 // =============================================================================
-const scenes = [scene1, scene2, scene3, scene4, scene5, scene6, scene7, scene8, scene9, scene10, scene11, scene12, scene13, scene14, scene15, scene16, scene17, scene18, scene19, scene20, scene21, scene22, scene23, scene24, scene25, scene26, scene27, scene28, scene29];
+const scenes = [scene1, scene2, scene3, scene4, scene5, scene6, scene7, scene8, scene9, scene10, scene11, scene12, scene13, scene14, scene15, scene16, scene17, scene18, scene19, scene20, scene21, scene22, scene23, scene24, scene25, scene26, scene27, scene28];
 
 const getStartTime = (sceneIndex: number) => {
   return scenes.slice(0, sceneIndex).reduce((acc, s) => acc + s.duration, 0);
@@ -405,7 +404,7 @@ export const Update211_16x9: React.FC = () => {
 
       {/* Scene 8 */}
       <Sequence name={`Scene 8: ${scene8.name}`} from={getStartTime(7)} durationInFrames={scene8.duration}>
-        <Video src={staticFile(scene8.clip)} playbackRate={2} />
+        <Video src={staticFile(scene8.clip)} />
         <StepCaption text="Step Two: Placement Previews & Brand Preferences" />
       </Sequence>
 
@@ -418,7 +417,7 @@ export const Update211_16x9: React.FC = () => {
 
       {/* Scene 10 */}
       <Sequence name={`Scene 10: ${scene10.name}`} from={getStartTime(9)} durationInFrames={scene10.duration}>
-        <Video src={staticFile(scene10.clip)} />
+        <Video src={staticFile(scene10.clip)} playbackRate={2.5} />
         <StepCaption text="Step Three: Campaign Creation" />
       </Sequence>
 
@@ -438,8 +437,8 @@ export const Update211_16x9: React.FC = () => {
 
       {/* Scene 13 */}
       <Sequence name={`Scene 13: ${scene13.name}`} from={getStartTime(12)} durationInFrames={scene13.duration}>
-        <Video src={staticFile(scene13.clip)} playbackRate={2} />
-        <StepCaption text="Step One: Profile Lookup & Account Syncing" />
+        <Video src={staticFile(scene13.clip)} playbackRate={1.5} />
+        <StepCaption text="Step One: Account Verification" />
       </Sequence>
 
       {/* Scene 14 */}
@@ -452,7 +451,7 @@ export const Update211_16x9: React.FC = () => {
       {/* Scene 15 */}
       <Sequence name={`Scene 15: ${scene15.name}`} from={getStartTime(14)} durationInFrames={scene15.duration}>
         <Video src={staticFile(scene15.clip)} playbackRate={2} />
-        <StepCaption text="Step Two: Ad Slot Previews & Creator Preferences" />
+        <StepCaption text="Step Two: Creator Preferences" />
       </Sequence>
 
       {/* Scene 16 */}
@@ -464,8 +463,8 @@ export const Update211_16x9: React.FC = () => {
 
       {/* Scene 17 */}
       <Sequence name={`Scene 17: ${scene17.name}`} from={getStartTime(16)} durationInFrames={scene17.duration}>
-        <Video src={staticFile(scene17.clip)} />
-        <StepCaption text="Step Three: Ad Slot Creation" />
+        <Video src={staticFile(scene17.clip)} playbackRate={2} />
+        <StepCaption text="Step Three: Upload Video & Monetize" />
       </Sequence>
 
       {/* Scene 18 */}
@@ -484,17 +483,17 @@ export const Update211_16x9: React.FC = () => {
 
       {/* Scene 20 */}
       <Sequence name={`Scene 20: ${scene20.name}`} from={getStartTime(19)} durationInFrames={scene20.duration}>
-        <StackedScene clipLeft={scene20.clipLeft} clipRight={scene20.clipRight} audioFrom="none" />
+        <Video src={staticFile(scene20.clip)} />
       </Sequence>
 
       {/* Scene 21 */}
       <Sequence name={`Scene 21: ${scene21.name}`} from={getStartTime(20)} durationInFrames={scene21.duration}>
-        <StackedScene clipLeft={scene21.clipLeft} clipRight={scene21.clipRight} objectPosition="center top" audioFrom="none" />
+        <Video src={staticFile(scene21.clip)} muted />
       </Sequence>
 
       {/* Scene 22 */}
       <Sequence name={`Scene 22: ${scene22.name}`} from={getStartTime(21)} durationInFrames={scene22.duration}>
-        <StackedScene clipLeft={scene22.clipLeft} clipRight={scene22.clipRight} objectPosition="center top" audioFrom="none" />
+        <Video src={staticFile(scene22.clip)} muted />
       </Sequence>
 
       {/* Scene 23 */}
@@ -506,17 +505,17 @@ export const Update211_16x9: React.FC = () => {
 
       {/* Scene 24 */}
       <Sequence name={`Scene 24: ${scene24.name}`} from={getStartTime(23)} durationInFrames={scene24.duration}>
-        <StackedScene clipLeft={scene24.clipLeft} clipRight={scene24.clipRight} />
+        <Video src={staticFile(scene24.clip)} />
       </Sequence>
 
       {/* Scene 25 */}
       <Sequence name={`Scene 25: ${scene25.name}`} from={getStartTime(24)} durationInFrames={scene25.duration}>
-        <StackedScene clipLeft={scene25.clipLeft} clipRight={scene25.clipRight} objectPosition="center top" />
+        <Video src={staticFile(scene25.clip)} />
       </Sequence>
 
       {/* Scene 26 */}
       <Sequence name={`Scene 26: ${scene26.name}`} from={getStartTime(25)} durationInFrames={scene26.duration}>
-        <StackedScene clipLeft={scene26.clipLeft} clipRight={scene26.clipRight} objectPosition="center top" />
+        <Video src={staticFile(scene26.clip)} />
       </Sequence>
 
       {/* Scene 27 */}
@@ -527,11 +526,6 @@ export const Update211_16x9: React.FC = () => {
       {/* Scene 28 */}
       <Sequence name={`Scene 28: ${scene28.name}`} from={getStartTime(27)} durationInFrames={scene28.duration}>
         <Video src={staticFile(scene28.clip)} />
-      </Sequence>
-
-      {/* Scene 29 */}
-      <Sequence name={`Scene 29: ${scene29.name}`} from={getStartTime(28)} durationInFrames={scene29.duration}>
-        <Video src={staticFile(scene29.clip)} />
       </Sequence>
     </AbsoluteFill>
   );

@@ -12,14 +12,15 @@ const TITLE_DURATION = 90; // 3 seconds (each title)
 const STACKED_DURATION = 140; // 4.67 seconds (matches bottom clip)
 const STACKED2_DURATION = 135; // 4.5 seconds (matches bottom clip)
 const STACKED3_DURATION = 120; // 4 seconds - matches clip, no hold on last frame
+const TITLE5_DURATION = 451; // ~15 seconds - step 1 brands-003.mov at 2x speed
 const STACKED4_DURATION = 140; // 4.67 seconds
 const PRE_OUTRO_DURATION = 120; // 4 seconds - before second-to-last (Outro 1)
-const ROTATO_DURATION = 150; // 5 seconds - rotato brand scene
+const ROTATO_DURATION = 540; // 18 seconds - step 1 creators scene
 const OUTRO1_DURATION = 90; // 3 seconds
 const OUTRO2_DURATION = 90; // 3 seconds
 
 // Total duration for fade out calculation (intro + tagline + 5 title + 4 stacked + pre-outro + rotato + 2 outros)
-const TOTAL_DURATION = INTRO_DURATION + TAGLINE_DURATION + TITLE1_DURATION + (TITLE_DURATION * 4) + STACKED_DURATION + STACKED2_DURATION + STACKED3_DURATION + STACKED4_DURATION + PRE_OUTRO_DURATION + ROTATO_DURATION + OUTRO1_DURATION + OUTRO2_DURATION;
+const TOTAL_DURATION = INTRO_DURATION + TAGLINE_DURATION + TITLE1_DURATION + (TITLE_DURATION * 3) + TITLE5_DURATION + STACKED_DURATION + STACKED2_DURATION + STACKED3_DURATION + STACKED4_DURATION + PRE_OUTRO_DURATION + ROTATO_DURATION + OUTRO1_DURATION + OUTRO2_DURATION;
 
 export const AdsStudioBrands: React.FC = () => {
   // Scene start times
@@ -33,7 +34,7 @@ export const AdsStudioBrands: React.FC = () => {
   const scene7Start = scene6Start + STACKED2_DURATION;
   const scene8Start = scene7Start + TITLE_DURATION;
   const scene9Start = scene8Start + STACKED3_DURATION;   // Title 5 (after Glider Wings)
-  const scene10Start = scene9Start + TITLE_DURATION;    // Stacked 4
+  const scene10Start = scene9Start + TITLE5_DURATION;    // Stacked 4
   const preOutroStart = scene10Start + STACKED4_DURATION; // Pre-outro (before Outro 1)
   const rotatoStart = preOutroStart + PRE_OUTRO_DURATION; // Rotato brand scene
   const scene11Start = rotatoStart + ROTATO_DURATION; // Outro 1
@@ -79,7 +80,7 @@ export const AdsStudioBrands: React.FC = () => {
       <Sequence name="Scene 3: Title - Podcast Intro" from={scene2Start} durationInFrames={TITLE1_DURATION}>
         <AbsoluteFill>
           <Video
-            muted
+            volume={0.65}
             src={staticFile("title-podcast-9x16-scene2.mp4")}
             style={{
               width: "100%",
@@ -94,8 +95,8 @@ export const AdsStudioBrands: React.FC = () => {
       <Sequence name="Scene 4: Title - Supplement Intro" from={scene2bStart} durationInFrames={TITLE_DURATION}>
         <AbsoluteFill>
           <Video
-            muted
-            src={staticFile("ads-studio-brands-title1b.mp4")}
+            volume={0.65}
+            src={staticFile("main-title-16x9-scene4.mp4")}
             style={{
               width: "100%",
               height: "100%",
@@ -154,11 +155,12 @@ export const AdsStudioBrands: React.FC = () => {
       </Sequence>
 
       {/* Scene 10: Title - Final Demo Intro */}
-      <Sequence name="Scene 10: Title - Final Demo Intro" from={scene9Start} durationInFrames={TITLE_DURATION}>
+      <Sequence name="Scene 10: Title - Final Demo Intro" from={scene9Start} durationInFrames={TITLE5_DURATION}>
         <AbsoluteFill>
           <Video
             muted
-            src={staticFile("03-title-podcast-9x16.mp4")}
+            playbackRate={2}
+            src={staticFile("step-1-brands-003.mov")}
             style={{
               width: "100%",
               height: "100%",
@@ -189,12 +191,12 @@ export const AdsStudioBrands: React.FC = () => {
         </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 13: Rotato Brand Demo */}
-      <Sequence name="Scene 13: Rotato Brand Demo" from={rotatoStart} durationInFrames={ROTATO_DURATION}>
+      {/* Scene 13: Step 1 Creators */}
+      <Sequence name="Scene 13: Step 1 Creators" from={rotatoStart} durationInFrames={ROTATO_DURATION}>
         <AbsoluteFill>
           <Video
             muted
-            src={staticFile("rotato-brand-9x16.mp4")}
+            src={staticFile("step-1-creators-001z.mov")}
             style={{
               width: "100%",
               height: "100%",

@@ -183,7 +183,7 @@ const MusicScene7: React.FC = () => {
   );
 };
 
-export const WayveNature_16x9: React.FC = () => {
+export const WayveAction_16x9: React.FC = () => {
   return (
     <AbsoluteFill style={{ backgroundColor: "#0a0a0a" }}>
       {/* Background Music Part 1 */}
@@ -210,7 +210,7 @@ export const WayveNature_16x9: React.FC = () => {
       <Sequence name="Scene 1" from={INTRO_START} durationInFrames={INTRO_DURATION}>
         <AbsoluteFill>
           <Video
-            src={staticFile("wayve-nature-16x9-scene1.mp4")}
+            src={staticFile("intro-16-9-11.mp4")}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </AbsoluteFill>
@@ -220,7 +220,7 @@ export const WayveNature_16x9: React.FC = () => {
       <Sequence name="Scene 2" from={TITLE_START} durationInFrames={TITLE_DURATION}>
         <AbsoluteFill>
           <Video
-            src={staticFile("wayve-nature-16x9-scene2.mp4")}
+            src={staticFile("main-title-16x9-44.mp4")}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </AbsoluteFill>
@@ -230,7 +230,7 @@ export const WayveNature_16x9: React.FC = () => {
       <Sequence name="Scene 3" from={EPISODE_TITLE_START} durationInFrames={EPISODE_TITLE_DURATION}>
         <AbsoluteFill>
           <Video
-            src={staticFile("wayve-nature-16x9-scene2b.mp4")}
+            src={staticFile("01-title-podcast-16x9-15.mp4")}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </AbsoluteFill>
@@ -240,7 +240,7 @@ export const WayveNature_16x9: React.FC = () => {
       <Sequence name="Scene 4" from={CLIP_1_START} durationInFrames={CLIP_1_DURATION}>
         <AbsoluteFill>
           <Video
-            src={staticFile("intro-16-9-5.mp4")}
+            src={staticFile("intro-16-9-8.mp4")}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </AbsoluteFill>
@@ -250,7 +250,7 @@ export const WayveNature_16x9: React.FC = () => {
       <Sequence name="Scene 5" from={CLIP_1_TITLE_START} durationInFrames={CLIP_1_TITLE_DURATION}>
         <AbsoluteFill>
           <Video
-            src={staticFile("01-title-podcast-16x9-10.mp4")}
+            src={staticFile("01-title-podcast-16x9-16.mp4")}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </AbsoluteFill>
@@ -260,7 +260,7 @@ export const WayveNature_16x9: React.FC = () => {
       <Sequence name="Scene 6" from={CLIP_2_START} durationInFrames={CLIP_2_DURATION}>
         <AbsoluteFill>
           <Video
-            src={staticFile("intro-16-9-6.mp4")}
+            src={staticFile("intro-16-9-9.mp4")}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </AbsoluteFill>
@@ -270,7 +270,7 @@ export const WayveNature_16x9: React.FC = () => {
       <Sequence name="Scene 7" from={CLIP_2_TITLE_START} durationInFrames={CLIP_2_TITLE_DURATION}>
         <AbsoluteFill>
           <Video
-            src={staticFile("01-title-podcast-16x9-11.mp4")}
+            src={staticFile("01-title-podcast-16x9-17.mp4")}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </AbsoluteFill>
@@ -280,7 +280,7 @@ export const WayveNature_16x9: React.FC = () => {
       <Sequence name="Scene 8" from={CLIP_3_START} durationInFrames={CLIP_3_DURATION}>
         <AbsoluteFill>
           <Video
-            src={staticFile("intro-16-9-7.mp4")}
+            src={staticFile("intro-16-9-10.mp4")}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </AbsoluteFill>

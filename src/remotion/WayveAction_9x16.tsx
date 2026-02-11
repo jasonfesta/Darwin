@@ -11,9 +11,10 @@ const CLIP_2_DURATION = 452;          // ~15 seconds - content clip 2
 const CLIP_2_TITLE_DURATION = 90;     // 3 seconds - clip 2 title
 const CLIP_3_DURATION = 452;          // ~15 seconds - content clip 3
 
-const CTA_TITLE_DURATION = 90;        // 3 seconds - title-podcast-16x9 (7)
+const CTA_TITLE_DURATION = 90;        // 3 seconds - title-podcast-9x16 (7)
+const CTA_OUTRO_DURATION = 90;        // 3 seconds - outro-9x16 (5)
 
-const NEW_SCENE_2_DURATION = 90;      // 3 seconds - outro-16x9-5
+const NEW_SCENE_2_DURATION = 90;      // 3 seconds - outro-9x16-5
 
 // Scene start times
 const INTRO_START = 0;
@@ -27,15 +28,16 @@ const CLIP_2_TITLE_START = CLIP_2_START + CLIP_2_DURATION;
 const CLIP_3_START = CLIP_2_TITLE_START + CLIP_2_TITLE_DURATION;
 
 const CTA_TITLE_START = CLIP_3_START + CLIP_3_DURATION;
+const CTA_OUTRO_START = CTA_TITLE_START + CTA_TITLE_DURATION;
 
-const NEW_SCENE_2_START = CTA_TITLE_START + CTA_TITLE_DURATION;
+const NEW_SCENE_2_START = CTA_OUTRO_START + CTA_OUTRO_DURATION;
 
 // Total duration
 const TOTAL_DURATION = INTRO_DURATION + TITLE_DURATION + EPISODE_TITLE_DURATION + 
   CLIP_1_DURATION + CLIP_1_TITLE_DURATION + 
   CLIP_2_DURATION + CLIP_2_TITLE_DURATION + 
   CLIP_3_DURATION + 
-  CTA_TITLE_DURATION +
+  CTA_TITLE_DURATION + CTA_OUTRO_DURATION +
   NEW_SCENE_2_DURATION;
 
 // Music settings
@@ -48,7 +50,7 @@ const MUSIC1_FADE_OUT_START = MUSIC1_DURATION - FADE_DURATION;
 
 // Second music segment (CTA and outro scenes)
 const MUSIC2_START = CTA_TITLE_START;
-const MUSIC2_DURATION = CTA_TITLE_DURATION + NEW_SCENE_2_DURATION;
+const MUSIC2_DURATION = CTA_TITLE_DURATION + CTA_OUTRO_DURATION + NEW_SCENE_2_DURATION;
 
 // Fade out at 1:08 (68 seconds = 2040 frames absolute) - using longer fade for smooth ending
 const MUSIC2_FADE_OUT_ABSOLUTE = 68 * 30; // 2040 frames
@@ -183,7 +185,7 @@ const MusicScene7: React.FC = () => {
   );
 };
 
-export const WayveNature_16x9: React.FC = () => {
+export const WayveAction_9x16: React.FC = () => {
   return (
     <AbsoluteFill style={{ backgroundColor: "#0a0a0a" }}>
       {/* Background Music Part 1 */}
@@ -210,7 +212,7 @@ export const WayveNature_16x9: React.FC = () => {
       <Sequence name="Scene 1" from={INTRO_START} durationInFrames={INTRO_DURATION}>
         <AbsoluteFill>
           <Video
-            src={staticFile("wayve-nature-16x9-scene1.mp4")}
+            src={staticFile("mask-9-16-2.mp4")}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </AbsoluteFill>
@@ -220,7 +222,7 @@ export const WayveNature_16x9: React.FC = () => {
       <Sequence name="Scene 2" from={TITLE_START} durationInFrames={TITLE_DURATION}>
         <AbsoluteFill>
           <Video
-            src={staticFile("wayve-nature-16x9-scene2.mp4")}
+            src={staticFile("title-podcast-9x16-10.mp4")}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </AbsoluteFill>
@@ -230,7 +232,7 @@ export const WayveNature_16x9: React.FC = () => {
       <Sequence name="Scene 3" from={EPISODE_TITLE_START} durationInFrames={EPISODE_TITLE_DURATION}>
         <AbsoluteFill>
           <Video
-            src={staticFile("wayve-nature-16x9-scene2b.mp4")}
+            src={staticFile("01-title-podcast-9x16-12.mp4")}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </AbsoluteFill>
@@ -240,7 +242,7 @@ export const WayveNature_16x9: React.FC = () => {
       <Sequence name="Scene 4" from={CLIP_1_START} durationInFrames={CLIP_1_DURATION}>
         <AbsoluteFill>
           <Video
-            src={staticFile("intro-16-9-5.mp4")}
+            src={staticFile("wayve-action-scene4.mp4")}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </AbsoluteFill>
@@ -250,7 +252,7 @@ export const WayveNature_16x9: React.FC = () => {
       <Sequence name="Scene 5" from={CLIP_1_TITLE_START} durationInFrames={CLIP_1_TITLE_DURATION}>
         <AbsoluteFill>
           <Video
-            src={staticFile("01-title-podcast-16x9-10.mp4")}
+            src={staticFile("01-title-podcast-9x16-13.mp4")}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </AbsoluteFill>
@@ -260,7 +262,7 @@ export const WayveNature_16x9: React.FC = () => {
       <Sequence name="Scene 6" from={CLIP_2_START} durationInFrames={CLIP_2_DURATION}>
         <AbsoluteFill>
           <Video
-            src={staticFile("intro-16-9-6.mp4")}
+            src={staticFile("wayve-action-scene6.mp4")}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </AbsoluteFill>
@@ -270,7 +272,7 @@ export const WayveNature_16x9: React.FC = () => {
       <Sequence name="Scene 7" from={CLIP_2_TITLE_START} durationInFrames={CLIP_2_TITLE_DURATION}>
         <AbsoluteFill>
           <Video
-            src={staticFile("01-title-podcast-16x9-11.mp4")}
+            src={staticFile("01-title-podcast-9x16-14.mp4")}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </AbsoluteFill>
@@ -280,7 +282,7 @@ export const WayveNature_16x9: React.FC = () => {
       <Sequence name="Scene 8" from={CLIP_3_START} durationInFrames={CLIP_3_DURATION}>
         <AbsoluteFill>
           <Video
-            src={staticFile("intro-16-9-7.mp4")}
+            src={staticFile("wayve-action-scene8.mp4")}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </AbsoluteFill>
@@ -290,17 +292,27 @@ export const WayveNature_16x9: React.FC = () => {
       <Sequence name="Scene 9" from={CTA_TITLE_START} durationInFrames={CTA_TITLE_DURATION}>
         <AbsoluteFill>
           <Video
-            src={staticFile("Outro-1.mp4")}
+            src={staticFile("title-podcast-9x16-9.mp4")}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 10 - Outro */}
-      <Sequence name="Scene 10" from={NEW_SCENE_2_START} durationInFrames={NEW_SCENE_2_DURATION}>
+      {/* Scene 10 - CTA Outro */}
+      <Sequence name="Scene 10" from={CTA_OUTRO_START} durationInFrames={CTA_OUTRO_DURATION}>
         <AbsoluteFill>
           <Video
-            src={staticFile("outro-16x9-new.mp4")}
+            src={staticFile("wayve-nature-scene7.mp4")}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+        </AbsoluteFill>
+      </Sequence>
+
+      {/* Scene 11 - Outro */}
+      <Sequence name="Scene 11" from={NEW_SCENE_2_START} durationInFrames={NEW_SCENE_2_DURATION}>
+        <AbsoluteFill>
+          <Video
+            src={staticFile("outro-9x16-5.mp4")}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </AbsoluteFill>
