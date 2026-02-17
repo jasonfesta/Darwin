@@ -29,6 +29,9 @@ import { WayveAction_16x9 } from "./WayveAction_16x9";
 import { Update211_16x9 } from "./Update211_16x9";
 import { Update211_9x16 } from "./Update211_9x16";
 
+// Ad Hero
+import { AdHero_16x9, TOTAL_DURATION as AD_HERO_DURATION } from "./AdHero_16x9";
+
 export const RemotionRoot: React.FC = () => {
   return (
     <>
@@ -134,7 +137,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="wayve-action-16x9"
         component={WayveAction_16x9}
-        durationInFrames={1986}
+        durationInFrames={2076}
         fps={30}
         width={1920}
         height={1080}
@@ -154,6 +157,16 @@ export const RemotionRoot: React.FC = () => {
         component={Update211_16x9}
         durationInFrames={4635}
         fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* Ad Hero */}
+      <Composition
+        id="ad-hero-16x9"
+        component={AdHero_16x9}
+        durationInFrames={AD_HERO_DURATION}
+        fps={60}
         width={1920}
         height={1080}
       />

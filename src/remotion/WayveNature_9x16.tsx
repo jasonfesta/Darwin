@@ -208,17 +208,17 @@ export const WayveNature_9x16: React.FC = () => {
         <MusicScene7 />
       </Sequence>
 
-      {/* Scene 1 - Intro */}
+      {/* Scene 1 */}
       <Sequence name="Scene 1" from={INTRO_START} durationInFrames={INTRO_DURATION}>
         <AbsoluteFill>
           <Video
-            src={staticFile("wayve-nature-scene1.mp4")}
+            src={staticFile("mask-9-16-4.mp4")}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 2 - Title */}
+      {/* Scene 2 */}
       <Sequence name="Scene 2" from={TITLE_START} durationInFrames={TITLE_DURATION}>
         <AbsoluteFill>
           <Video
@@ -228,7 +228,7 @@ export const WayveNature_9x16: React.FC = () => {
         </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 3 - Episode Title */}
+      {/* Scene 3 */}
       <Sequence name="Scene 3" from={EPISODE_TITLE_START} durationInFrames={EPISODE_TITLE_DURATION}>
         <AbsoluteFill>
           <Video
@@ -238,7 +238,7 @@ export const WayveNature_9x16: React.FC = () => {
         </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 4 - Clip 1 */}
+      {/* Scene 4 */}
       <Sequence name="Scene 4" from={CLIP_1_START} durationInFrames={CLIP_1_DURATION}>
         <AbsoluteFill>
           <Video
@@ -248,7 +248,7 @@ export const WayveNature_9x16: React.FC = () => {
         </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 5 - Clip 1 Title */}
+      {/* Scene 5 */}
       <Sequence name="Scene 5" from={CLIP_1_TITLE_START} durationInFrames={CLIP_1_TITLE_DURATION}>
         <AbsoluteFill>
           <Video
@@ -258,7 +258,7 @@ export const WayveNature_9x16: React.FC = () => {
         </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 6 - Clip 2 */}
+      {/* Scene 6 */}
       <Sequence name="Scene 6" from={CLIP_2_START} durationInFrames={CLIP_2_DURATION}>
         <AbsoluteFill>
           <Video
@@ -268,7 +268,7 @@ export const WayveNature_9x16: React.FC = () => {
         </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 7 - Clip 2 Title */}
+      {/* Scene 7 */}
       <Sequence name="Scene 7" from={CLIP_2_TITLE_START} durationInFrames={CLIP_2_TITLE_DURATION}>
         <AbsoluteFill>
           <Video
@@ -278,7 +278,7 @@ export const WayveNature_9x16: React.FC = () => {
         </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 8 - Clip 3 */}
+      {/* Scene 8 */}
       <Sequence name="Scene 8" from={CLIP_3_START} durationInFrames={CLIP_3_DURATION}>
         <AbsoluteFill>
           <Video
@@ -288,7 +288,7 @@ export const WayveNature_9x16: React.FC = () => {
         </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 9 - CTA Title */}
+      {/* Scene 9 */}
       <Sequence name="Scene 9" from={CTA_TITLE_START} durationInFrames={CTA_TITLE_DURATION}>
         <AbsoluteFill>
           <Video
@@ -298,7 +298,7 @@ export const WayveNature_9x16: React.FC = () => {
         </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 10 - CTA Outro */}
+      {/* Scene 10 */}
       <Sequence name="Scene 10" from={CTA_OUTRO_START} durationInFrames={CTA_OUTRO_DURATION}>
         <AbsoluteFill>
           <Video
@@ -308,7 +308,7 @@ export const WayveNature_9x16: React.FC = () => {
         </AbsoluteFill>
       </Sequence>
 
-      {/* Scene 11 - Outro */}
+      {/* Scene 11 */}
       <Sequence name="Scene 11" from={NEW_SCENE_2_START} durationInFrames={NEW_SCENE_2_DURATION}>
         <AbsoluteFill>
           <Video
