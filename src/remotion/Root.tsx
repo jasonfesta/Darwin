@@ -32,6 +32,9 @@ import { Update211_9x16 } from "./Update211_9x16";
 // Ad Hero
 import { AdHero_16x9, TOTAL_DURATION as AD_HERO_DURATION } from "./AdHero_16x9";
 
+// Stitch
+import { Stitch_16x9, TOTAL_DURATION as STITCH_DURATION } from "./Stitch_16x9";
+
 export const RemotionRoot: React.FC = () => {
   return (
     <>
@@ -167,6 +170,16 @@ export const RemotionRoot: React.FC = () => {
         component={AdHero_16x9}
         durationInFrames={AD_HERO_DURATION}
         fps={60}
+        width={1920}
+        height={1080}
+      />
+
+      {/* Stitch */}
+      <Composition
+        id="stitch-16x9"
+        component={Stitch_16x9}
+        durationInFrames={STITCH_DURATION}
+        fps={30}
         width={1920}
         height={1080}
       />
