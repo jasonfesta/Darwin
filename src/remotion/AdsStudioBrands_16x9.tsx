@@ -336,7 +336,7 @@ const BackgroundMusic: React.FC = () => {
 
   return (
     <Audio
-      src={staticFile("m83-outro.mp3")}
+      src={staticFile("ads-studio-007-music.mp3")}
       volume={volume}
     />
   );

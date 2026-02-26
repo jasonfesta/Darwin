@@ -5,6 +5,10 @@ import { Composition } from "remotion";
 import { AdsStudio007 } from "./AdsStudio007";
 import { AdsStudio007_16x9 } from "./AdsStudio007_16x9";
 
+// Ads Studio - Mobile Phones
+import { MobilePhones_9x16 } from "./MobilePhones";
+import { MobilePhones_16x9 } from "./MobilePhones_16x9";
+
 // Ads Studio - Brands
 import { AdsStudioBrands } from "./AdsStudioBrands";
 import { AdsStudioBrands_16x9 } from "./AdsStudioBrands_16x9";
@@ -28,6 +32,10 @@ import { WayveAction_16x9 } from "./WayveAction_16x9";
 // 2-11 Update
 import { Update211_16x9 } from "./Update211_16x9";
 import { Update211_9x16 } from "./Update211_9x16";
+
+// 2-25 Update
+import { Update225_16x9, TOTAL_DURATION as UPDATE225_16x9_DURATION } from "./Update225_16x9";
+import { Update225_9x16, TOTAL_DURATION as UPDATE225_9x16_DURATION } from "./Update225_9x16";
 
 // Ad Hero
 import { AdHero_16x9, TOTAL_DURATION as AD_HERO_DURATION } from "./AdHero_16x9";
@@ -69,6 +77,24 @@ export const RemotionRoot: React.FC = () => {
         id="desks-16x9"
         component={AdsStudio007_16x9}
         durationInFrames={1360}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* Ads Studio - Mobile Phones */}
+      <Composition
+        id="mobile-phones-9x16"
+        component={MobilePhones_9x16}
+        durationInFrames={1168}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="mobile-phones-16x9"
+        component={MobilePhones_16x9}
+        durationInFrames={1325}
         fps={30}
         width={1920}
         height={1080}
@@ -164,6 +190,24 @@ export const RemotionRoot: React.FC = () => {
         height={1080}
       />
 
+      {/* 2-25 Update */}
+      <Composition
+        id="2-25-update-9x16"
+        component={Update225_9x16}
+        durationInFrames={UPDATE225_9x16_DURATION}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="2-25-update-16x9"
+        component={Update225_16x9}
+        durationInFrames={UPDATE225_16x9_DURATION}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
       {/* Ad Hero */}
       <Composition
         id="ad-hero-16x9"
@@ -179,7 +223,7 @@ export const RemotionRoot: React.FC = () => {
         id="stitch-16x9"
         component={Stitch_16x9}
         durationInFrames={STITCH_DURATION}
-        fps={30}
+        fps={60}
         width={1920}
         height={1080}
       />
